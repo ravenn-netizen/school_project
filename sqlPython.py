@@ -29,3 +29,6 @@ addcustomer()
 altertable()
 createdb()
 
+# yes it works lol YASSS
+
+
