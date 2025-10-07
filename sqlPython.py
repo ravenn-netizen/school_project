@@ -26,4 +26,6 @@ def addcustomer():
     db.commit()
 
 addcustomer()
-    
+altertable()
+createdb()
+
