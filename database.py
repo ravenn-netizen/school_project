@@ -11,6 +11,6 @@ def createdb():
   cursor.execute(com)
 
 def createTableStudent():
-  #hi guys its me<3
+
   
   
