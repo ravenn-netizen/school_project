@@ -7,9 +7,9 @@ cursor = db.cursor()
 #to create database
 def createdb():
   cmd= "CREATE DATABASE SCHOOL"
-  cursor.execute(com)
+  cursor.execute(cmd)
   cmd= "USE SCHOOL"
-  cursor.execute(com)
+  cursor.execute(cmd)
 
 #to create table 'student'
 def createTableStudent():
