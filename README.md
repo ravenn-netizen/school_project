@@ -17,7 +17,7 @@ DATABASES
      2. cprno
      3. name
      4. dob
-     5. class (IX - XII)
+     5. class (XI - XII)
      6. bus or priv
      7. bus stop ( if applicable )
      8. telephone number
