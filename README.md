@@ -25,15 +25,16 @@ DATABASES
      10. address
 
 2. academic
-     1. stream 
-     2. sub 1
-     3. sub 2
-     4. sub 3
-     5. sub 4
-     6. sub 5
-     7. average
-     8. attendance
-     9. remark
+     1. grno
+     2. stream 
+     3. sub 1
+     4. sub 2
+     5. sub 3
+     6. sub 4
+     7. sub 5
+     8. average
+     9. attendance
+     10. remark
 
 3. sports 
    1. game
