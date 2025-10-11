@@ -13,12 +13,12 @@ def createdb():
 
 #to create table 'student'
 def createTableStudent():
-    cmd="CREATE TABLE STUDENT(grno int primary key, name )"
+    cmd="CREATE TABLE STUDENT(GRNO int primary key, NAME )"
     cursor.execute(cmd)
 
 #to create table 'academic'
 def createTableAcademic():
-    cmd = "CREATE TABLE ACADEMIC(GRNO INT PRIMARY KEY, SUB1 FLOAT, SUB2 FLOAT, SUB3 FLOAT, SUB4 FLOAT, SUB5 FLOAT, AVG FLOAT, REMARKS"
+    cmd = "CREATE TABLE ACADEMIC(GRNO INT PRIMARY KEY, SUB1 FLOAT, SUB2 FLOAT, SUB3 FLOAT, SUB4 FLOAT, SUB5 FLOAT, AVG FLOAT, REMARKS varchar(10)"
     cursor.execute(cmd)
 
 
