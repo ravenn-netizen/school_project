@@ -50,10 +50,3 @@ def search_house():
       print("Grnno="r[0],"class="r[1],"name="r[2],"stream="r[3],"house"=r[4])
   else:
     print("no record found")
-  
-  
-  
-  
-
-
-
