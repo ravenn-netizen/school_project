@@ -7,7 +7,7 @@ def search_grno():
   cursor.execute(query)
   rec=cursor.fetchone()
   if rec:
-    print("Grnno="rec[0],"class="rec[1],"name="rec[2],"stream="rec[3],"house"=[4])
+    print("Grnno="rec[0],"class="rec[1],"name="rec[2],"stream="rec[3],"house"=rec[4])
   else:
     print("no record found")
 def search_class():
