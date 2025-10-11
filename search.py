@@ -16,7 +16,8 @@ def search_class():
   cursor.execute(query)
   rec=cursor.fetchall()
   if rec:
-    print("Grnno="rec[0],"class="rec[1],"name="rec[2],"stream="rec[3],"house"=[4])
+    for r in rec:
+      print("Grnno="r[0],"class="r[1],"name="r[2],"stream="r[3],"house"=r[4])
   else:
     print("no record found")
 def search_name():
@@ -25,7 +26,8 @@ def search_name():
   cursor.execute(query)
   rec=cursor.fetchall()
   if rec:
-    print("Grnno="rec[0],"class="rec[1],"name="rec[2],"stream="rec[3],"house"=[4])
+    for r in rec:
+      print("Grnno="r[0],"class="r[1],"name="r[2],"stream="r[3],"house"=r[4])
   else:
     print("no record found")
 def search_stream():
@@ -34,7 +36,8 @@ def search_stream():
   cursor.execute(query)
   rec=cursor.fetchall()
   if rec:
-    print("Grnno="rec[0],"class="rec[1],"name="rec[2],"stream="rec[3],"house"=[4])
+    for r in rec:
+      print("Grnno="r[0],"class="r[1],"name="r[2],"stream="r[3],"house"=r[4])
   else:
     print("no record found")
 def search_house():
@@ -43,9 +46,13 @@ def search_house():
   cursor.execute(query)
   rec=cursor.fetchall()
   if rec:
-    print("Grnno="rec[0],"class="rec[1],"name="rec[2],"stream="rec[3],"house"=[4])
+    for r in rec:
+      print("Grnno="r[0],"class="r[1],"name="r[2],"stream="r[3],"house"=r[4])
   else:
     print("no record found")
+  
+  
+  
   
 
 
