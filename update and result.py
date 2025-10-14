@@ -2,16 +2,22 @@ import mysql.connector as sql
 db=sql.connect(host='localhost',user='root',password='1922',database='School')
 cursor=db.cursor()
 gr=int(input("enter gr.no of the student to be updated:"))
+
+#update class 
 def updateclass():
     nclass=int(input("Enter new class of the student:"))
     com="update student set Class='{}' where Grno={}".format(nclass,gr)
     cursor.execute(com)
     db.commit()
+
+update bus stop
 def updatebusstop():
     nbusstop=input("Enter new bus stop of the student:")
     com="update student set Busstop='{}' where Grno={}".format(nbusstop,gr)
     cursor.execute(com)
     db.commit()
+
+#update telephone no
 def updatetel():
     nph=input("Enter new phone number of the student:")
     com="update student set Telephoneno='{}' where Grno={}".format(nph,gr)
@@ -33,12 +39,15 @@ while True:
         elif opt==4:
             break
 
+#update staff
+
 # hihi
 # can you make an update function for staff as well?
-# 
+# sure 
 
    
             
                     
         
+
 
