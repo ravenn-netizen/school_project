@@ -33,8 +33,12 @@ while True:
         elif opt==4:
             break
 
-    
+# hihi
+# can you make an update function for staff as well?
+# 
+
    
             
                     
         
+
