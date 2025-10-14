@@ -57,7 +57,8 @@ def StaffSignIn():
     #this cpr and staffID will be used to reference the user gliabally 
     global cpr
     global staffID
-    global user_type = 'staff'
+    global user_type 
+    user_type = 'staff'
     
     print('welcome to the database :)')
 
@@ -95,9 +96,11 @@ def studentSignIn():
     cpr  = cursor.fetchone()
     global cpr
     global studentID
-    global user_type = 'student'
+    global user_type 
+    user_type = 'student'
     
     print('welcome to the database :)')
+
 
 
 
