@@ -1,6 +1,12 @@
 # school_project
 STUDENT MANAGEMENT SYSTEM 
 
+- all sql related code in CAPS (including headers)
+- all string input into table should be made to lower() 
+- refer to database.py for table structure
+  
+
+
 INTRODUCTION 
 MAIN MENU 
 
@@ -33,7 +39,6 @@ DATABASES
      6. sub 4
      7. sub 5
      8. average
-     9. attendance
      10. remark
 
 3. sports 
