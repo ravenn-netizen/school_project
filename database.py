@@ -25,3 +25,9 @@ def createTableAcademic():
 def createTableStaff():
     cmd = "CREATE TABLE STAFF(STAFFID INT PRIMARY KEY, NAME VARCHAR(30), DEPARTMENT VARCHAR(20), CPR INT DISTINCT)
     cursor.execute(cmd)
+#to create table 'COMMUNICATION' for comm interface
+def createTableCommunication():
+    cursor.execute("USE DATABASE SCHOOL")
+    cmd = "CREATE TABLE COMMUNICATION(REF INT PRIMARY KEY, SENDER INT, RECIPIENT INT, SENDER_TYPE CHAR(10), RECIPIENT_TYPE CHAR(10), CONTENT TEXT, DATE DATE)"
+    # here using cpr for sender and recipient as their ids may clash but cpr is unique
+    cursor.execute(cmd)
