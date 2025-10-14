@@ -1,6 +1,6 @@
 def staffSignUp():
     #usr inputs details
-    cursor.execute('USE STUDENT')
+    cursor.execute('USE SCHOOL')
     cpr = int(input('enter cpr: '))
     name = input('enter name: ').lower()
     dept = input('enter department: ').lower()
@@ -81,6 +81,7 @@ def studentSignIn():
                 passwd = int(input('enter passwd: '))
                 
     print('welcome into the database :)')
+
 
 
 
