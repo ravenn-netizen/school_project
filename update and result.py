@@ -10,7 +10,7 @@ def updateclass():
     cursor.execute(com)
     db.commit()
 
-update bus stop
+#update bus stop
 def updatebusstop():
     nbusstop=input("Enter new bus stop of the student:")
     com="update student set Busstop='{}' where Grno={}".format(nbusstop,gr)
@@ -49,5 +49,6 @@ while True:
             
                     
         
+
 
 
