@@ -19,11 +19,11 @@ def staffSignUp():
 def StaffSignIn():
     # to enter staff id and check if in database
     while True:
-        staffid = int(input('enter staffid: '))
+        staffID = int(input('enter staffid: '))
         cmd = 'SELECT STAFFID FROM STAFF'
         cursor.execute(cmd)
         records = cursor.fetchall()
-        if tuple(staffid) in records:
+        if tuple(staffID) in records:
             break
         else:
             print('staffid entered does not exist')
@@ -44,23 +44,31 @@ def StaffSignIn():
     records = cursor.fetchall()
     while True:
         for record in records:
-            if record[0] == staffid and record[1] == passwd:
+            if record[0] == staffID and record[1] == passwd:
                 break 
             else: 
                 print('wrong password')
                 passwd = int(input('enter passwd: '))
+                
+    query = "SELECT CPR FROM STAFF WHERE STUDENTID = {}".format(staffID)    
+    cursor.execute(query)
+    cpr  = cursor.fetchone()
 
-    print('welcome into the database :)')
+    #this cpr and staffID will be used to reference the user gliabally 
+    global cpr
+    global staffID
+    
+    print('welcome to the database :)')
 
 def studentSignIn():
     cursor.execute('USE STUDENT')
     
     while True:
-        studentId = int(input('enter student id: '))
-        cmd = 'SELECT STUDID FROM STUDENT'
+        studentID = int(input('enter student id: '))
+        cmd = 'SELECT STUDENTID FROM STUDENT'
         cursor.execute(cmd)
         records = cursor.fetchall()
-        if tuple(studentId) in records:
+        if tuple(studentID) in records:
             break
         else:
             print('student id entered does not exist')
@@ -74,13 +82,21 @@ def studentSignIn():
     records = cursor.fetchall()
     while True:
         for record in records:
-            if record[0] == studentId and record[1] == passwd:
+            if record[0] == studentID and record[1] == passwd:
                 break 
             else: 
                 print('wrong password')
                 passwd = int(input('enter passwd: '))
-                
-    print('welcome into the database :)')
+    query = "SELECT CPR FROM STUDENT WHERE STUDENTID = {}".format(studentID)    
+    cursor.execute(query)
+
+    #this cpr and student ID will be used to reference the user globally
+    cpr  = cursor.fetchone()
+    global cpr
+    global studentID
+    
+    print('welcome to the database :)')
+
 
 
 
