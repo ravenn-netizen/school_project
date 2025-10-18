@@ -18,7 +18,9 @@ def createTableStudent():
 
 #to create table 'ACADEMIC'
 def createTableAcademic():
-    cmd = "CREATE TABLE ACADEMIC(STUDENTID INT PRIMARY KEY, SUB1 FLOAT, SUB2 FLOAT, SUB3 FLOAT, SUB4 FLOAT, SUB5 FLOAT, AVG FLOAT, REMARKS varchar(10) '''pass or fail'''"
+    cmd = "CREATE TABLE ACADEMIC(STUDENTID INT PRIMARY KEY, TERM INT, REMARKS varchar(10) '''pass or fail'''"
+    cursor.execute(cmd)
+    cmd="CREATE TABLE MARKS (SNO INT PRIMARY KEY, SUB1 FLOAT, SUB2 FLOAT, SUB3 FLOAT, SUB4 FLOAT, SUB5 FLOAT, AVG FLOAT)"
     cursor.execute(cmd)
 
 #to create table 'STAFF'
