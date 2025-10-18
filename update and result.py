@@ -54,6 +54,12 @@ while True:
 
 #update staff passwd
 def updatestaffpass():
+
+
+#result 
+def result_management():
+    
+
     
         
 
@@ -62,6 +68,7 @@ def updatestaffpass():
             
                     
         
+
 
 
 
