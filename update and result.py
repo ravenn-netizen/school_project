@@ -17,6 +17,13 @@ def updatebusstop():
     cursor.execute(com)
     db.commit()
 
+#update bus no
+def updatebusno():
+    nbusno=int(input("Enter new bus number:"))
+    com="update student set Busno={} where Grno={}".format(nbusno,gr)
+    cursor.execute(com)
+    db.commit()
+    
 #update telephone no
 def updatetel():
     nph=input("Enter new phone number of the student:")
@@ -24,31 +31,32 @@ def updatetel():
     cursor.execute(com)
     db.commit()
 while True:
-        print("Main Menu:")
-        print("1.Class")
-        print("2.Bus stop")
-        print("3.Telephone number")
-        print("4.Exit")
-        opt=int(input("Enter option"))
-        if opt==1:
-            updateclass()
-        elif opt==2:
-            updatebusstop()
-        elif opt==3:
-            updatetel()
-        elif opt==4:
-            break
+    print("Main Menu:")
+    print("1.Class")
+    print("2.Bus stop")
+    print("3.Bus Number")
+    print("4.Telephone number")
+    print("5.Exit")
+    opt=int(input("Enter option"))
+    if opt==1:
+        updateclass()
+    elif opt==2:
+        updatebusstop()
+    elif opt==3:
+        updatebusno()
+    elif opt==4:
+        updatetel()
+    elif opt==5:
+        break
 
-#update staff
+        
 
-# hihi
-# can you make an update function for staff as well?
-# sure 
 
    
             
                     
         
+
 
 
 
