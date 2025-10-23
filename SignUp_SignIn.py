@@ -15,6 +15,7 @@ def staffSignUp():
     #to insert details into table STAFF
     cmd= "INSERT INTO STAFF VALUES({}, '{}', '{}', {}, '{}', '{}')".format(staffid, name, dept, cpr, passwd1)
     cursor.execute(cmd)
+    db.commit()
 
 def StaffSignIn():
     # to enter staff id and check if in database
@@ -100,6 +101,7 @@ def studentSignIn():
     user_type = 'student'
     
     print('welcome to the database :)')
+
 
 
 
