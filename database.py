@@ -18,15 +18,14 @@ def createTableStudent():
 
 #to create table 'ACADEMIC'
 def createTableAcademic():
-    cmd = "CREATE TABLE ACADEMIC(STUDENTID INT PRIMARY KEY, TERM INT, REMARKS varchar(10) '''pass or fail'''"
-    cursor.execute(cmd)
-    cmd="CREATE TABLE MARKS (SNO INT PRIMARY KEY, STUDENTID INT, SUB1 FLOAT, SUB2 FLOAT, SUB3 FLOAT, SUB4 FLOAT, SUB5 FLOAT, AVG FLOAT, FOREIGN KEY(STUDENTID) REFERENCES STUDENT (STUDENTID))"
+    cmd = "CREATE TABLE ACADEMIC(STUDENTID INT PRIMARY KEY, TERM VARCHAR(6), SUB1 FLOAT, SUB2 FLOAT, SUB3 FLOAT, SUB4 FLOAT, SUB5 FLOAT, AVG FLOAT, REMARKS varchar(10) '''pass or fail''')"
     cursor.execute(cmd)
 
 #to create table 'STAFF'
 def createTableStaff():
     cmd = "CREATE TABLE STAFF(STAFFID INT PRIMARY KEY, NAME VARCHAR(30), DEPARTMENT VARCHAR(20), CPR INT DISTINCT)"
     cursor.execute(cmd)
+
 #to create table 'COMMUNICATION' for comm interface
 def createTableCommunication():
     cursor.execute("USE DATABASE SCHOOL")
