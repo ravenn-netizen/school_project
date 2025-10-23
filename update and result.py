@@ -1,5 +1,5 @@
 import mysql.connector as sql
-db=sql.connect(host='localhost',user='root',password='1922',database='School')
+db=sql.connect(host='localhost',user='root',password='****',database='School')
 cursor=db.cursor()
 
 #update class 
@@ -74,6 +74,7 @@ while True:
             
                     
         
+
 
 
 
