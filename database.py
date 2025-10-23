@@ -1,7 +1,7 @@
 #to establish python-sql connection
 
 import mysql.connector as sql
-db = sql.connect(host='localhost', user='root', passwd='****')
+db = sql.connect(host='localhost', user='root', passwd='****',database='SCHOOL')
 cursor = db.cursor()
 
 #to create database
