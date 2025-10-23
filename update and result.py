@@ -38,13 +38,32 @@ def updatetel():
 def updatestaffpass():
     id=input("Enter staffid:")
     npass=input("Enter new password of Staff:")
-    com="UPDATE STAFF
+    com="UPDATE STAFF SET PASSWORD='{}' WHERE STAFFID='{}' ".format(npass,id)
+    cursor.execute(com)
+    db.commit()
     
-    
-
-
 #result 
 def result_management():
+
+while True:
+    print("Main Menu:")
+    print("1.Class")
+    print("2.Bus stop")
+    print("3.Bus Number")
+    print("4.Telephone number")
+    print("5.Exit")
+    opt=int(input("Enter option"))
+    if opt==1:
+        updateclass()
+    elif opt==2:
+        updatebusstop()
+    elif opt==3:
+        updatebusno()
+    elif opt==4:
+        updatetel()
+    elif opt==5:
+        break
+
     
 
     
@@ -55,6 +74,7 @@ def result_management():
             
                     
         
+
 
 
 
