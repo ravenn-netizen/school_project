@@ -33,29 +33,13 @@ def updatetel():
     com="update student set Telephoneno='{}' where Grno={}".format(nph,gr)
     cursor.execute(com)
     db.commit()
-while True:
-    print("Main Menu:")
-    print("1.Class")
-    print("2.Bus stop")
-    print("3.Bus Number")
-    print("4.Telephone number")
-    print("5.Exit")
-    opt=int(input("Enter option"))
-    if opt==1:
-        updateclass()
-    elif opt==2:
-        updatebusstop()
-    elif opt==3:
-        updatebusno()
-    elif opt==4:
-        updatetel()
-    elif opt==5:
-        break
 
 #update staff passwd
 def updatestaffpass():
     id=input("Enter staffid:")
-    pass=input
+    npass=input("Enter new password of Staff:")
+    com="UPDATE STAFF
+    
     
 
 
@@ -71,6 +55,7 @@ def result_management():
             
                     
         
+
 
 
 
