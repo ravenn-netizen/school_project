@@ -23,7 +23,7 @@ def createTableAcademic():
 
 #to create table 'STAFF'
 def createTableStaff():
-    cmd = "CREATE TABLE STAFF(STAFFID INT PRIMARY KEY, NAME VARCHAR(30), DEPARTMENT VARCHAR(20), CPR INT DISTINCT, PASSWORD )"
+    cmd = "CREATE TABLE STAFF(STAFFID INT PRIMARY KEY, NAME VARCHAR(30), DEPARTMENT VARCHAR(20), CPR INT DISTINCT, PASSWORD VARCHAR(10))"
     cursor.execute(cmd)
 
 #to create table 'COMMUNICATION' for comm interface
