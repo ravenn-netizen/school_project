@@ -54,6 +54,8 @@ while True:
 
 #update staff passwd
 def updatestaffpass():
+    id=input("Enter staffid:")
+    
 
 
 #result 
@@ -68,6 +70,7 @@ def result_management():
             
                     
         
+
 
 
 
