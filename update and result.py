@@ -42,8 +42,20 @@ def updatestaffpass():
     cursor.execute(com)
     db.commit()
     
-#result 
+# inputing result
 def result_management():
+    sid=input("Enter student id:")
+    term=input("Enter term:")
+    s1=int(input("Enter marks of subject 1 "))
+    s2=int(input("Enter marks of subject 2"))
+    s3=int(input("Enter marks of subject 3"))
+    s4=int(input("Enter marks of subject 4"))
+    s5=int(input("Enter marks of subject 5"))
+    avg=(s1+s2+s3+s4+s5)/5
+    remark=input("Enter remarks:")
+    com="INSERT INTO ACADEMIC VALUES ('{}','{}',{},{},{},{},{},{},'{}')".format (sid,term,s1,s2,s3,s4,s5,avg,remark)
+    cursor.execute(com)
+    db.commit()
 
 while True:
     print("Main Menu:")
@@ -63,3 +75,4 @@ while True:
         updatetel()
     elif opt==5:
         break
+
