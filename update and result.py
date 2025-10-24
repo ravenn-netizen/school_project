@@ -57,6 +57,12 @@ def result_management():
     cursor.execute(com)
     db.commit()
 
+#PROGRESS REPORT
+def progress_report():
+    print("THE INDIAN SCHOOL, KINGDOM OF BAHRAIN".center(400))
+    print("PROGRESS REPORT 2025-2026".center(410))
+    
+
 while True:
     print("Main Menu:")
     print("1.Class")
@@ -75,4 +81,5 @@ while True:
         updatetel()
     elif opt==5:
         break
+
 
