@@ -23,12 +23,13 @@ def newAdmission():
     #to generate new student_id
     cmd = "SELECT MAX(STUDENT_ID) FROM STUDENT"
     cursor.execute(cmd)
-    student_id = cursor.fetchone() + 1
+    student_id = (cursor.fetchone())[0] + 1
 
     cmd = "INSERT INTO STUDENT VALUES('{}', '{}', '{}', '{}', {}, {}, '{}', {}, '{}', {}, '{}', '{}', '{}', '{}', '{}', '{}' )",format(student_id, name, dob, gender, age, clss, section, stream, transport, bus_no, bus_stop, guardian, tel, email, address,cpr)
     cursor.execute(cmd)
     db.commit()
     
+
 
 
 
