@@ -41,11 +41,88 @@ def updatestaffpass():
     com="UPDATE STAFF SET PASSWORD='{}' WHERE STAFFID='{}' ".format(npass,id)
     cursor.execute(com)
     db.commit()
-    
-# inputing result
-def result_management():
+
+#stream
+def stream():
+    print("MAIN MENU:")
+    print("1. Humanities")
+    print("2.Business Studies")
+    print("3.Informatics Practices")
+    print("4.Marketing")
+    print("5.Biology")
+    print("6.Maths Computer Science")
+    print("7.Engineering Graphics")
+    print("8.Biology Computer Science")
+    print("9.Bio-technology")
+    print("10.Artificial Intelligence")
+    opt=int(input("Enter option:"))
+    if opt==1:
+        sub1='English'
+        sub2='Home Science'
+        sub3='Psychology'
+        sub4='Marketing'
+        sub5='Sociology'
+    elif opt==2:
+        sub1='English'
+        sub2='Accountancy'
+        sub3='Business Studies'
+        sub4='Economics'
+        sub5='Mathematics'
+    elif opt==3:
+        sub1='English'
+        sub2='Accountancy'
+        sub3='Business Studies'
+        sub4='Economics'
+        sub5='Informatics Practices'
+    elif opt==4:
+        sub1='English'
+        sub2='Accountancy'
+        sub3='Business Studies'
+        sub4='Economics'
+        sub5='Marketing'
+    elif opt==5:
+        sub1='English'
+        sub2='Physics'
+        sub3='Chemistry'
+        sub4='Mathematics'
+        sub5='Biology'
+    elif opt==6:
+        sub1='English'
+        sub2='Physics'
+        sub3='Chemistry'
+        sub4='Mathematics'
+        sub5='Computer Science'
+    elif opt==7:
+        sub1='English'
+        sub2='Physics'
+        sub3='Chemistry'
+        sub4='Mathematics'
+        sub5='Engineering Graphics'
+    elif opt==8:
+        sub1='English'
+        sub2='Physics'
+        sub3='Chemistry'
+        sub4='Biology'
+        sub5='Computer Science'
+    elif opt==9:
+        sub1='English'
+        sub2='Physics'
+        sub3='Chemistry'
+        sub4='Biology'
+        sub5='Bio-Technology'
+    elif opt==10:
+        sub1='English'
+        sub2='Physics'
+        sub3='Chemistry'
+        sub4='Mathematics'
+        sub5='Artificial Intelligence'
+    return sub1,sub2,sub3,sub4,sub5
+
+#input marks into table academic
+def marksmanagement():
     sid=input("Enter student id:")
     term=input("Enter term:")
+    print(stream())
     s1=int(input("Enter marks of subject 1 "))
     s2=int(input("Enter marks of subject 2"))
     s3=int(input("Enter marks of subject 3"))
@@ -56,6 +133,7 @@ def result_management():
     com="INSERT INTO ACADEMIC VALUES ('{}','{}',{},{},{},{},{},{},'{}')".format (sid,term,s1,s2,s3,s4,s5,avg,remark)
     cursor.execute(com)
     db.commit()
+    
 
 #PROGRESS REPORT
 def progress_report():
@@ -81,5 +159,6 @@ while True:
         updatetel()
     elif opt==5:
         break
+
 
 
