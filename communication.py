@@ -1,31 +1,41 @@
-def sendMessage():
-    sender = cpr 
-    while True:
-        recipient_type = input('enter recipient type (student or staff): ').upper()
-        recipient_name = input('to (name): ')
-        
-        query = "SELECT NAME FROM '{}'".format(recipient_type)
-        cursor.execute(query)
-        records = cursor.fetchall()
-        if recipient_name in records:
-            break 
-        else: 
-            print('entered recipient type or recipient name is incorrect')
-            print('please try again')
+def createTableAnnouncements():
+    cmd = "CREATE TABLE ANNOUNCEMENT(REF INT, FROM varchar(20), TO_TYPE varchar(20), TO varchar(20), DATE date, CONTENT text)"
+    cursor.execute(cmd)
 
-    query = "SELECT CPR FROM '{}' WHERE NAME = '{}'".format(recipient_type, recipient_name)
-    cursor.execute()
-    recipient = cursor.fetchone()
+def sendAnnouncement():
+    sender = userid
+    print('choose reciever type')
+    print('1. grade')
+    print('2. class')
+    print('3. student')
+    opt = int(input('enter option: '))
+    if opt==1:
+        to_type = 'grade'
+        receipient = input('enter grade: ')
+    elif opt==2:
+        to_type  = 'class'
+        receipient = input('enter class: ')
 
-    message = input('Your message:', end='\n')
-    messageFile = open('temp', mode='w')
-    messageFile.write(message)
-    date = input('date (YYYY-MM-DD): ')
-
-    query = "SELECT max(REF) FROM COMMUNICATION"
-    cursor.execute(query)
+    elif opt==3:
+        to_type = 'student'
+        receipient = input('enter id: ')
+    
+    cmd = "SELECT MAX(REF) FROM ANNOUNCEMENT"
+    cursor.execute(cmd)
     ref = cursor.fetchone() + 1
 
-    cmd = "INSERT INTO COMMUNICATION VALUES({}, '{}', '{}', '{}', '{}', {}, '{}')".format(ref, sender, recipient, user_type, recipient_type, messageFile, date)
+
+    date = input('enter date YYYY-MM-DD: ')
+    subject = input('enter subject: ')
+    content = input('enter content: ')
+    file = open("message{}", "w").format(ref)
+    file.write(date)
+    file.write(subject)
+    file.write(content)
+    file.close()
+
+    
+    #to add into to file 
+    cmd = "INSERT INTO ANNOUNCEMENT VALUES(ref, userid, to_type, receipient, date, file)"
     cursor.execute(cmd)
     db.commit()
