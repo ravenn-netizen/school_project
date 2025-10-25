@@ -40,7 +40,7 @@ def StaffSignIn():
 
     passwd = input('enter password: ')
     
-    cmd = 'SELECT STAFFID, PASSWD FROM STAFF'
+    cmd = 'SELECT STAFFID, PASSWORD FROM STAFF'
     cursor.execute()
     records = cursor.fetchall()
     while True:
@@ -55,9 +55,11 @@ def StaffSignIn():
     cursor.execute(query)
     cpr  = cursor.fetchone()
 
+    user_id = staffID
+
     #this cpr and staffID will be used to reference the user gliabally 
     global cpr
-    global staffID
+    global user_id
     global user_type 
     user_type = 'staff'
     
@@ -80,7 +82,7 @@ def studentSignIn():
 
     passwd = input('enter password: ')
     
-    cmd = 'SELECT STUDENTID, PASSWORD FROM STAFF'
+    cmd = 'SELECT STUDENTID, PASSWORD FROM STUDENT'
     cursor.execute()
     records = cursor.fetchall()
     while True:
@@ -89,14 +91,17 @@ def studentSignIn():
                 break 
             else: 
                 print('wrong password')
-                passwd = int(input('enter passwd: '))
+                passwd = int(input('enter password: '))
+
     query = "SELECT CPR FROM STUDENT WHERE STUDENTID = {}".format(studentID)    
     cursor.execute(query)
 
     #this cpr and student ID will be used to reference the user globally
     cpr  = cursor.fetchone()
+    user_id = studentID
+
     global cpr
-    global studentID
+    global user_id
     global user_type 
     user_type = 'student'
     
