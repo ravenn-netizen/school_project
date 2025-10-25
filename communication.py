@@ -29,9 +29,9 @@ def sendAnnouncement():
     subject = input('enter subject: ')
     content = input('enter content: ')
     file = open("message{}", "w").format(ref)
-    file.write(date)
-    file.write(subject)
-    file.write(content)
+    file.write(date + '\n')
+    file.write(subject + '\n')
+    file.write(content + '\n')
     file.close()
 
     
