@@ -1,4 +1,4 @@
-def staffSignUp():
+def staff_sign_up():
     #usr inputs details
     cursor.execute('USE SCHOOL')
     cpr = int(input('enter cpr: '))
@@ -17,7 +17,7 @@ def staffSignUp():
     cursor.execute(cmd)
     db.commit()
 
-def StaffSignIn():
+def staff_sign_in():
     # to enter staff id and check if in database
     while True:
         staffID = int(input('enter staffid: '))
@@ -65,7 +65,7 @@ def StaffSignIn():
     
     print('welcome to the database :)')
 
-def studentSignIn():
+def student_in():
     cursor.execute('USE STUDENT')
     
     while True:
@@ -106,6 +106,7 @@ def studentSignIn():
     user_type = 'student'
     
     print('welcome to the database :)')
+
 
 
 
