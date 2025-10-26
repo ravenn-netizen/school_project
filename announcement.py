@@ -2,7 +2,7 @@ def createTableAnnouncements():
     cmd = "CREATE TABLE ANNOUNCEMENT(REF INT, SENDER varchar(20), RECEIPIENT_TYPE varchar(20), RECEIPIENT varchar(20), DATE date, CONTENT text)"
     cursor.execute(cmd)
 
-def sendAnnouncement():
+def send_announcement():
     sender = userid
     print('choose reciever type')
     print('1. grade')
@@ -22,28 +22,32 @@ def sendAnnouncement():
     
     cmd = "SELECT MAX(REF) FROM ANNOUNCEMENT"
     cursor.execute(cmd)
-    ref = cursor.fetchone() + 1
+    result = cursor.fetchone()
+    if result is None or result[0] is None:
+        ref = 1
+    else:
+        ref = result[0] + 1
 
 
     date = input('enter date YYYY-MM-DD: ')
     subject = input('enter subject: ')
     content = input('enter content: ')
 
-    file = open("message"+str(ref), "w")
+    filename = "message" + str(ref)
+    file = open(filename, "w")
     file.write(date)
     file.write(subject)
     file.write(content)
-    
-
+    file.close()
     
     #to add into to file 
-    cmd = "INSERT INTO ANNOUNCEMENT VALUES(ref, userid, receipient_type, receipient, date, file)"
+    cmd = "INSERT INTO ANNOUNCEMENT VALUES({}, '{}', '{}', '{}', '{}', '{}')".format(ref, userid, receipient_type, receipient, date, filename)
     cursor.execute(cmd)
 
-    file.close()
+   
     db.commit()
 
-def receivedAnnouncements():
+def received_announcement():
 
     cmd = "SELECT CLASS, SECTION FROM STUDENT"
     cursor.execute(cmd)
@@ -72,14 +76,18 @@ def receivedAnnouncements():
                 inbox.append(record)
 
         elif receipient_type == 'student':
-            if receipient == user_id
+            if receipient == user_id:
                 inbox.append(record)
+
+        i+=1
+        if i>= len(records):
+            break
             
     #to open each message
     print('announcements in inbox: ', len(inbox))
     if len(inbox)>0:
     
-        for i in inbox:
+        for i in range(len(inbox)):
             record = inbox[i]
             message = open(record[-1], 'r')
             subject = readline(message)
