@@ -1,4 +1,4 @@
-def newAdmission():
+def new_admission():
     name = input("enter name: ")
     dob = input('enter date of birth YYYY-MM-DD: ')
     gender = input('enter gender (M or F): ')
@@ -29,6 +29,7 @@ def newAdmission():
     cursor.execute(cmd)
     db.commit()
     
+
 
 
 
