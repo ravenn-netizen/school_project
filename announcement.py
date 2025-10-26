@@ -4,7 +4,9 @@ def createTableAnnouncements():
 
 def send_announcement():
     sender = userid
-    print('choose reciever type')
+
+    #to input receiver and their type
+    print('choose receiver type')
     print('1. grade')
     print('2. class')
     print('3. student')
@@ -15,11 +17,11 @@ def send_announcement():
     elif opt==2:
         receipient_type  = 'class'
         receipient = input('enter class (grade & section): ')
-
     elif opt==3:
         receipient_type = 'student'
         receipient = input('enter id: ')
-    
+
+    # to create reference for announcement
     cmd = "SELECT MAX(REF) FROM ANNOUNCEMENT"
     cursor.execute(cmd)
     result = cursor.fetchone()
@@ -28,17 +30,17 @@ def send_announcement():
     else:
         ref = result[0] + 1
 
-
+    #to input anncuncement content
     date = input('enter date YYYY-MM-DD: ')
     subject = input('enter subject: ')
     content = input('enter content: ')
 
     filename = "message" + str(ref)
-    file = open(filename, "w")
-    file.write(date)
-    file.write(subject)
-    file.write(content)
-    file.close()
+    with open(filename, "w") as file:
+        file.write("subject: " + subject + '\n')
+        file.write("date: "+ date + '\n')
+        file.write(content)
+    
     
     #to add into to file 
     cmd = "INSERT INTO ANNOUNCEMENT VALUES({}, '{}', '{}', '{}', '{}', '{}')".format(ref, userid, receipient_type, receipient, date, filename)
@@ -48,21 +50,18 @@ def send_announcement():
     db.commit()
 
 def received_announcement():
-
+    
+    #to check for announcements for user and add to their inbox 
     cmd = "SELECT CLASS, SECTION FROM STUDENT"
     cursor.execute(cmd)
     grade, section = cursor.fetchall()
-
+    
     cmd = "SELECT * FROM ANNOUNCEMENT"
     cursor.execute(cmd)
     records = cursor.fetchall()
 
-
-    #to check for announcements for user and add to their inbox 
-
     inbox=[]
-    i=0
-    while True:
+    for _ in range(len(records)):
         record = records[i]
         receipient_type = record[2]
         receipient = record[3]
@@ -78,10 +77,6 @@ def received_announcement():
         elif receipient_type == 'student':
             if receipient == user_id:
                 inbox.append(record)
-
-        i+=1
-        if i>= len(records):
-            break
             
     #to open each message
     print('announcements in inbox: ', len(inbox))
