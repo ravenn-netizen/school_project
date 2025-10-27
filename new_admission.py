@@ -1,11 +1,11 @@
 def new_admission():
-    name = input("enter name: ").capitalize()
+    name = input("enter name: ").title()
     dob = input('enter date of birth YYYY-MM-DD: ')
     gender = input('enter gender (M or F): ').upper().strip()
     age = int(input('Enter age: '))
     grade = int(input("enter class (11-12): "))
     section = input("enter section (A-Z): ").upper()
-    stream = 
+    stream = input("enter stream: ")
     transport = input("enter transport (bus or private): ").lower().strip()
 
     if transport == 'bus':
@@ -17,16 +17,17 @@ def new_admission():
     guardian = input("enter name of guardian(s) (each separated by a \' & \'): ").capitalize()
     tel = input('enter phone number: ')
     email = input('enter email: ')
-    address = 
+    address = input('enter address ( [flat] & [building] & [road] & [block] & [area] ')
     cpr = input('enter student\'s cpr number: ')
 
     #to generate new student_id
     cmd = "SELECT MAX(STUDENT_ID) FROM STUDENT"
     cursor.execute(cmd)
     result = cursor.fetchone()
+    
     if result is not None:
         i = result[1:] +1 
-        student_id = 'S'+i
+        student_id = 'S'+str(i)
     else:
         student_id = 'S0'
     
@@ -35,6 +36,7 @@ def new_admission():
     cursor.execute(cmd)
     db.commit()
     
+
 
 
 
