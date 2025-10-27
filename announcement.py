@@ -1,9 +1,11 @@
 def createTableAnnouncements():
+    cmd = "USE SCHOOL"
+    cursor.execute(cmd)
     cmd = "CREATE TABLE ANNOUNCEMENT(REF INT, SENDER varchar(20), RECEIPIENT_TYPE varchar(20), RECEIPIENT varchar(20), DATE date, CONTENT text)"
     cursor.execute(cmd)
 
 def send_announcement():
-    sender = userid
+    sender = user_id
 
     #to input receiver and their type
     print('choose receiver type')
@@ -16,7 +18,7 @@ def send_announcement():
         receipient = input('enter grade: ')
     elif opt==2:
         receipient_type  = 'class'
-        receipient = input('enter class (grade & section): ')
+        receipient = input('enter class (grade&section): ')
     elif opt==3:
         receipient_type = 'student'
         receipient = input('enter id: ')
@@ -25,6 +27,7 @@ def send_announcement():
     cmd = "SELECT MAX(REF) FROM ANNOUNCEMENT"
     cursor.execute(cmd)
     result = cursor.fetchone()
+    
     if result is None or result[0] is None:
         ref = 1
     else:
@@ -38,21 +41,20 @@ def send_announcement():
     filename = "message" + str(ref)
     with open(filename, "w") as file:
         file.write("subject: " + subject + '\n')
+        file.write("from: " + user_id + '\n')
         file.write("date: "+ date + '\n')
         file.write(content)
     
-    
     #to add into to file 
-    cmd = "INSERT INTO ANNOUNCEMENT VALUES({}, '{}', '{}', '{}', '{}', '{}')".format(ref, userid, receipient_type, receipient, date, filename)
+    cmd = "INSERT INTO ANNOUNCEMENT VALUES({}, '{}', '{}', '{}', '{}', '{}')".format(ref, sender, receipient_type, receipient, date, filename)
     cursor.execute(cmd)
 
-   
     db.commit()
 
 def received_announcement():
     
     #to check for announcements for user and add to their inbox 
-    cmd = "SELECT CLASS, SECTION FROM STUDENT"
+    cmd = "SELECT GRADE, SECTION FROM STUDENT"
     cursor.execute(cmd)
     grade, section = cursor.fetchall()
     
@@ -69,7 +71,7 @@ def received_announcement():
             inbox.append(record)
 
         elif receipient_type == 'class':
-            receipient.partition('&')
+            receipient.split('&')
 
             if receipient[0].strip() == grade and receipient[1].strip() == section:
                 inbox.append(record)
