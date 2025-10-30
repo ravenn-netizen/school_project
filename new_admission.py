@@ -26,7 +26,7 @@ def new_admission():
     result = cursor.fetchone()
     
     if result is not None:
-        i = result[1:] +1 
+        i = result[0][1:] +1 
         student_id = 'S'+str(i)
     else:
         student_id = 'S0'
@@ -36,6 +36,7 @@ def new_admission():
     cursor.execute(cmd)
     db.commit()
     
+
 
 
 
