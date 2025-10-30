@@ -5,6 +5,11 @@ def new_admission():
     age = int(input('Enter age: '))
     grade = int(input("enter class (11-12): "))
     section = input("enter section (A-Z): ").upper()
+    # see guys i made a global dictionary that contain streamcode (eg: H01, C02, S03) and corresponding subjects
+    # now im print the streamcode and its subjects to let the staff confirm that their entering the right stream code
+    for stream_code, subjects in streams:
+        print(stream_code, subjects)
+        
     stream = input("enter stream: ")
     transport = input("enter transport (bus or private): ").lower().strip()
 
@@ -36,6 +41,7 @@ def new_admission():
     cursor.execute(cmd)
     db.commit()
     
+
 
 
 
