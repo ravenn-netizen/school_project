@@ -5,6 +5,7 @@ def new_admission():
     age = int(input('Enter age: '))
     grade = int(input("enter class (11-12): "))
     section = input("enter section (A-Z): ").upper()
+    
     # see guys i made a global dictionary that contain streamcode (eg: H01, C02, S03) and corresponding subjects
     # now im print the streamcode and its subjects to let the staff confirm that their entering the right stream code
     for stream_code, subjects in streams:
@@ -33,22 +34,16 @@ def new_admission():
     if result is not None:
         i = int(result[0][1:]) +1 
         student_id = 'S'+str(i)
+        #this is in case there are already some records inthe table
+        # result[0] to access the id, cuz sql returns it in a tuple
+        # result[0][1:] using slicing t extraxt the numerical part; then converting it into int(), then adding +1 to generate a new one
+        # for new id convert into string, concatenate to S, AND VOILA! NEW STUDENT ID GUYSS!!
+        #this code is cryptic aff ikk so lmk if you can find something simpler
     else:
+        #this is in case the table is empty, so we are entering the first student id ie S0
         student_id = 'S0'
     
 
     cmd = "INSERT INTO STUDENT VALUES('{}', '{}', '{}', '{}', {}, {}, '{}', {}, '{}', {}, '{}', '{}', '{}', '{}', '{}', '{}' )",format(student_id, name, dob, gender, age, grade, section, stream, transport, bus_no, bus_stop, guardian, tel, email, address,cpr)
     cursor.execute(cmd)
     db.commit()
-    
-
-
-
-
-
-
-
-
-
-
-
