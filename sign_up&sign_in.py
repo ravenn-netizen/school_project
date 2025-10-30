@@ -14,7 +14,7 @@ def staff_sign_up():
     if result is None:
         staff_id = 'T0'
     else:
-        staff_id = 'T'+ str(int(result[1:]) + 1)
+        staff_id = 'T'+ str(result[0][1:] + 1)
 
     #to insert details into table STAFF
     cmd= "INSERT INTO STAFF VALUES({}, '{}', '{}', {}, '{}', '{}')".format(staff_id, name, dept, cpr, password)
@@ -98,6 +98,7 @@ def student_sign_in():
     user_type = 'student'
     
     print('welcome to the database :)')
+
 
 
 
