@@ -43,81 +43,16 @@ def updatestaffpass():
     db.commit()
 
 #stream
-def stream():
-    print("MAIN MENU:")
-    print("1. Humanities")
-    print("2.Business Studies")
-    print("3.Informatics Practices")
-    print("4.Marketing")
-    print("5.Biology")
-    print("6.Maths Computer Science")
-    print("7.Engineering Graphics")
-    print("8.Biology Computer Science")
-    print("9.Bio-technology")
-    print("10.Artificial Intelligence")
-    opt=int(input("Enter option:"))
-    if opt==1:
-        sub1='English'
-        sub2='Home Science'
-        sub3='Psychology'
-        sub4='Marketing'
-        sub5='Sociology'
-    elif opt==2:
-        sub1='English'
-        sub2='Accountancy'
-        sub3='Business Studies'
-        sub4='Economics'
-        sub5='Mathematics'
-    elif opt==3:
-        sub1='English'
-        sub2='Accountancy'
-        sub3='Business Studies'
-        sub4='Economics'
-        sub5='Informatics Practices'
-    elif opt==4:
-        sub1='English'
-        sub2='Accountancy'
-        sub3='Business Studies'
-        sub4='Economics'
-        sub5='Marketing'
-    elif opt==5:
-        sub1='English'
-        sub2='Physics'
-        sub3='Chemistry'
-        sub4='Mathematics'
-        sub5='Biology'
-    elif opt==6:
-        sub1='English'
-        sub2='Physics'
-        sub3='Chemistry'
-        sub4='Mathematics'
-        sub5='Computer Science'
-    elif opt==7:
-        sub1='English'
-        sub2='Physics'
-        sub3='Chemistry'
-        sub4='Mathematics'
-        sub5='Engineering Graphics'
-    elif opt==8:
-        sub1='English'
-        sub2='Physics'
-        sub3='Chemistry'
-        sub4='Biology'
-        sub5='Computer Science'
-    elif opt==9:
-        sub1='English'
-        sub2='Physics'
-        sub3='Chemistry'
-        sub4='Biology'
-        sub5='Bio-Technology'
-    elif opt==10:
-        sub1='English'
-        sub2='Physics'
-        sub3='Chemistry'
-        sub4='Mathematics'
-        sub5='Artificial Intelligence'
+def stream(stream_code):
+    global streams
+    streams={'H01':('English','Home Science','Psychology','Marketing','Sociology'), 'C01':('English','Accountancy','Business Studies','Economics','Mathematics'),'C02':('English','Accountancy','Business Studies','Economics',
+                        'Informatics Practices'),'C03':('English','Accountancy','Business Studies','Economics','Marketing'),'S01':( 'English','Physics','Chemistry','Mathematics','Biology'),'S02':('English','Physics','Chemistry','Mathematics',
+                        'Computer Science'),'S03':('English','Physics','Chemistry','Mathematics','Engineering Graphics'),'S04':('English','Physics','Chemistry','Biology','Computer Science'),'S05':('English','Physics','Chemistry','Biology',
+                        'Bio-Technology'),'S06':('English','Physics','Chemistry','Mathematics','Artificial Intelligence')}
+    if stream_code in streams:
+        subject=streams[stream_code]
+        sub1,sub2,sub3,sub4,sub5=subject[0],subject[1],subject[2],subject[3],subject[4]
     return sub1,sub2,sub3,sub4,sub5
-
 #input marks into table academic
 def marksmanagement():
     sid=input("Enter student id:")
@@ -159,6 +94,7 @@ while True:
         updatetel()
     elif opt==5:
         break
+
 
 
 
