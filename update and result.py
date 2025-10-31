@@ -53,11 +53,16 @@ def stream(stream_code):
         subject=streams[stream_code]
         sub1,sub2,sub3,sub4,sub5=subject[0],subject[1],subject[2],subject[3],subject[4]
     return sub1,sub2,sub3,sub4,sub5
+    
 #input marks into table academic
 def marksmanagement():
     sid=input("Enter student id:")
     term=input("Enter term:")
-    print(stream())
+    for stream_code,subject in streams:
+        print(stream_code,subject)
+    opt=int(input("Enter stream code"))
+    print(stream(opt))
+    s1,s2,s3,s4,s5=sub1,sub2,sub3,sub4,sub5
     s1=int(input("Enter marks of subject 1 "))
     s2=int(input("Enter marks of subject 2"))
     s3=int(input("Enter marks of subject 3"))
@@ -94,6 +99,7 @@ while True:
         updatetel()
     elif opt==5:
         break
+
 
 
 
