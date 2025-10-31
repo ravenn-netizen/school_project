@@ -11,7 +11,7 @@ def new_admission():
     for stream_code, subjects in streams.items():
         print(stream_code, subjects)
         
-    stream = input("enter stream: ")
+    stream = input("enter stream: ").upper().srip()
     transport = input("enter transport (bus or private): ").lower().strip()
 
     if transport == 'bus':
@@ -44,8 +44,9 @@ def new_admission():
         student_id = 'S0'
     
 
-    cmd = "INSERT INTO STUDENT VALUES('{}', '{}', '{}', '{}', {}, {}, '{}', {}, '{}', {}, '{}', '{}', '{}', '{}', '{}', '{}' )".format(student_id, name, dob, gender, age, grade, section, stream, transport, bus_no, bus_stop, guardian, tel, email, address,cpr)
+    cmd = "INSERT INTO STUDENT VALUES('{}', '{}', '{}', '{}', {}, {}, '{}', '{}', '{}', {}, '{}', '{}', '{}', '{}', '{}', '{}' )".format(student_id, name, dob, gender, age, grade, section, stream, transport, bus_no, bus_stop, guardian, tel, email, address,cpr)
     cursor.execute(cmd)
     db.commit()
+
 
 
