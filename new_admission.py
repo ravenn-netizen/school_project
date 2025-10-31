@@ -8,7 +8,7 @@ def new_admission():
     
     # see guys i made a global dictionary that contain streamcode (eg: H01, C02, S03) and corresponding subjects
     # now im print the streamcode and its subjects to let the staff confirm that their entering the right stream code
-    for stream_code, subjects in streams:
+    for stream_code, subjects in streams.items():
         print(stream_code, subjects)
         
     stream = input("enter stream: ")
@@ -47,4 +47,5 @@ def new_admission():
     cmd = "INSERT INTO STUDENT VALUES('{}', '{}', '{}', '{}', {}, {}, '{}', {}, '{}', {}, '{}', '{}', '{}', '{}', '{}', '{}' )".format(student_id, name, dob, gender, age, grade, section, stream, transport, bus_no, bus_stop, guardian, tel, email, address,cpr)
     cursor.execute(cmd)
     db.commit()
+
 
