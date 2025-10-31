@@ -60,27 +60,37 @@ def marksmanagement():
     opt=input("Enter stream code")
     print(stream(opt))
     s1,s2,s3,s4,s5=stream(opt)
-    s1=int(input("Enter marks of subject 1 "))
-    s2=int(input("Enter marks of subject 2"))
-    s3=int(input("Enter marks of subject 3"))
-    s4=int(input("Enter marks of subject 4"))
-    s5=int(input("Enter marks of subject 5"))
+    s1=int(input("Enter marks of subject 1: "))
+    s2=int(input("Enter marks of subject 2: "))
+    s3=int(input("Enter marks of subject 3: "))
+    s4=int(input("Enter marks of subject 4: "))
+    s5=int(input("Enter marks of subject 5: "))
     avg=(s1+s2+s3+s4+s5)/5
     remark=input("Enter remarks:")
     com="INSERT INTO ACADEMIC VALUES ('{}','{}',{},{},{},{},{},{},'{}')".format (sid,term,s1,s2,s3,s4,s5,avg,remark)
     cursor.execute(com)
     db.commit()
     
-
+def tablestudent_academic():
+    cmd=CRE 
+    
 #PROGRESS REPORT
+#center() is method used to print the string at the centre of the output screen 
+#syntax of center is text.center(width)
 def progress_report():
+    sid=input("Enter Studend Id of the student: ")
+    term= input("Enter term: ")
     print("THE INDIAN SCHOOL, KINGDOM OF BAHRAIN".center(400))
     print("PROGRESS REPORT 2025-2026".center(410))
+    print(term.center(450))
+    cursor.execute("SELECT * FROM STUDENT WHERE STUDENT_ID='{}' ").format(sid)
+    rec=cursor.fetchone()
+    if rec:
+        gr,name,cl,sec=rec[0],rec[1],rec[5]rec[6]
+        print("Student Id : ",gr)
+        print("NAME OF STUDENT: ",name)
+        print("CLASS AND SECTION : ",cl,sec,sep=' ')
+    else:
+        print("No record found")
+        
     
-
-
-
-
-
-
-
