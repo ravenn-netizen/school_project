@@ -13,7 +13,7 @@ def new_admission():
     for stream_code, subjects in streams.items():
         print(stream_code, subjects)
         
-    streamcode = input("enter stream: ").upper().strip()
+    stream = input("enter streamcode: ").upper().strip()
     transport = input("enter transport (bus or private): ").lower().strip()
 
     if transport == 'bus':
@@ -51,6 +51,7 @@ def new_admission():
     cmd = "INSERT INTO STUDENT VALUES('{}', '{}', '{}', '{}', {}, {}, '{}', '{}', '{}', {}, '{}', '{}', '{}', '{}', '{}', '{}' ,'{}')".format(student_id, name, dob, gender, age, grade, section, stream, transport, bus_no, bus_stop, guardian, tel, email, address,cpr, password)
     cursor.execute(cmd)
     db.commit()
+
 
 
 
