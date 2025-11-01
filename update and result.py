@@ -59,7 +59,7 @@ def marksmanagement():
         print(stream_code,subject)
     opt=input("Enter stream code")
     print(stream(opt))
-    s1,s2,s3,s4,s5=stream(opt)
+
     s1=int(input("Enter marks of subject 1: "))
     s2=int(input("Enter marks of subject 2: "))
     s3=int(input("Enter marks of subject 3: "))
@@ -92,4 +92,5 @@ def progress_report():
         print("No record found")
         
     
+
 
