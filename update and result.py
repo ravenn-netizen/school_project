@@ -71,9 +71,7 @@ def marksmanagement():
     cursor.execute(com)
     db.commit()
     
-def tablestudent_academic():
-    cmd=CRE 
-    
+
 #PROGRESS REPORT
 #center() is method used to print the string at the centre of the output screen 
 #syntax of center is text.center(width)
@@ -94,3 +92,4 @@ def progress_report():
         print("No record found")
         
     
+
