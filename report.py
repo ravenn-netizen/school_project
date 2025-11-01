@@ -3,6 +3,8 @@ def report():
     print('\n', 'REPORT MENU', '\n')
     print("1. group by class")
     print("2. specific class")
+    print("3. group by stream")
+    print("4. specific stream")
     opt = int(input("enter option: "))
        
         
@@ -34,4 +36,24 @@ def report():
         for i in records:
             for k in i:
                 print(k, end='\t')
-            print()        
+            print()      
+    elif opt == 3:
+        query = "SELECT COUNT(A.STUDENT_ID) AS NO_OF_STUDENTS, MIN(A.AVERAGE) AS MINIMUM_AVERAGE, MAX(A.AVERAGE) AS MAXIMUM_AVERAGE, AVG(A.AVERAGE) AS STREAM_AVERAGE WHERE STUDENTS S NATURAL JOIN ACADEMICS A GROUP BY S.STREAM"
+        cursor.execute(query)
+        records = cursor.fetchall()
+        for record in records:
+            for k in record:
+                print(k, end='\t')
+            print()
+    elif opt == 4:
+        for stream_code, subjects in streams:
+            print(stream_code, subjects)
+        stream = input('enter stream code: ')
+        query = "SELECT COUNT(A.STUDENT_ID) AS NO_OF_STUDENTS, MIN(A.AVERAGE) AS MINIMUM_AVERAGE, MAX(A.AVERAGE) AS MAXIMUM_AVERAGE, AVG(A.AVERAGE) AS STREAM_AVERAGE FROM STUDENTS S NATURAL JOIN ACADEMICS A GROUP BY S.STREAM WHERE S.STREAM={}".format(stream)
+        cursor.execute(query)
+        records = cursor.fetchall()
+        for record in records:
+            for k in record:
+                print(k, end='\t')
+            print()
+        
