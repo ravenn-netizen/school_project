@@ -7,7 +7,7 @@ def search_grno():
   cursor.execute(query)
   rec=cursor.fetchone()
   if rec:
-    print("Grnno=",rec[0],"class=",rec[1],"name=",rec[2],",stream=",rec[3],"house=",rec[4])
+    print("STUDENT_ID=",r[0], "NAME=",r[1], "DOB=",r[2], "GENDER=",r[3], "AGE=",r[4], "GRADE=",r[5], "SECTION=",r[6], "STREAM=",r[7], "TRANSPORT=",r[8], "BUS.NO=",r[9], "BUS STOP=",r[10], "GUARDIAN=",r[11], "TEL=",r[12], "EMAIL=",r[13], "ADDRESS=",r[14], "CPR=",r[15])
   else:
     print("no record found")
 def search_class():
@@ -17,7 +17,7 @@ def search_class():
   rec=cursor.fetchall()
   if rec:
     for r in rec:
-      print("Grnno=",r[0],"class=",r[1],"name=",r[2],"stream=",r[3],"house=",r[4])
+      print("STUDENT_ID=",r[0], "NAME=",r[1], "DOB=",r[2], "GENDER=",r[3], "AGE=",r[4], "GRADE=",r[5], "SECTION=",r[6], "STREAM=",r[7], "TRANSPORT=",r[8], "BUS.NO=",r[9], "BUS STOP=",r[10], "GUARDIAN=",r[11], "TEL=",r[12], "EMAIL=",r[13], "ADDRESS=",r[14], "CPR=",r[15])
   else:
     print("no record found")
 def search_name():
@@ -27,7 +27,7 @@ def search_name():
   rec=cursor.fetchall()
   if rec:
     for r in rec:
-      print("Grno=",r[0],"class=",r[1],"name=",r[2],"stream=",r[3],"house",=r[4])
+      print("STUDENT_ID=",r[0], "NAME=",r[1], "DOB=",r[2], "GENDER=",r[3], "AGE=",r[4], "GRADE=",r[5], "SECTION=",r[6], "STREAM=",r[7], "TRANSPORT=",r[8], "BUS.NO=",r[9], "BUS STOP=",r[10], "GUARDIAN=",r[11], "TEL=",r[12], "EMAIL=",r[13], "ADDRESS=",r[14], "CPR=",r[15])
   else:
     print("no record found")
 def search_stream():
@@ -37,17 +37,7 @@ def search_stream():
   rec=cursor.fetchall()
   if rec:
     for r in rec:
-      print("Grnno=",r[0],"class=",r[1],"name=",r[2],"stream=",r[3],"house=",r[4])
-  else:
-    print("no record found")
-def search_house():
-  House=input("enter house")
-  query="select*from student where house='{}'".format(House)
-  cursor.execute(query)
-  rec=cursor.fetchall()
-  if rec:
-    for r in rec:
-      print("Grnno=",r[0],"class=",r[1],"name=",r[2],"stream=",r[3],"house=",r[4])
+      print("STUDENT_ID=",r[0], "NAME=",r[1], "DOB=",r[2], "GENDER=",r[3], "AGE=",r[4], "GRADE=",r[5], "SECTION=",r[6], "STREAM=",r[7], "TRANSPORT=",r[8], "BUS.NO=",r[9], "BUS STOP=",r[10], "GUARDIAN=",r[11], "TEL=",r[12], "EMAIL=",r[13], "ADDRESS=",r[14], "CPR=",r[15])
   else:
     print("no record found")
 
