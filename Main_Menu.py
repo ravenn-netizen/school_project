@@ -1,28 +1,28 @@
-def main_menu():
-   
+def Main_Menu():
     while True:
-        print("\n=== SCHOOL PROJECT MAIN MENU ===")
-        print("1. Add new student")
-        print("2. View student details")
-        print("3. Update student records")
-        print("4. Delete student")
-        print("5. Exit")
+        print("\n--- Main Menu ---")
+        print("1. Staff (Teacher) Sign Up")
+        print("2. Staff (Teacher) Sign In")
+        print("3. Student Sign In")
+        print("4. Exit")
+        choice = input("Enter your choice: ")
 
-        try:
-            choice = int(input("Enter your choice (1–5): "))
-
-            if choice == 1:
-                add_student()          
-            elif choice == 2:
-                view_student()
-            elif choice == 3:
-                update_student()
-            elif choice == 4:
-                delete_student()
-            elif choice == 5:
-                print("Exiting")
-                break
+        if choice == '1':
+            staff_sign_up()  # defined in sign_up&sign_in.py
+        elif choice == '2':
+            if staff_sign_in():
+                teacher_menu()
             else:
-                print("Invalid option. Please choose a number between 1 and 5.")
-        except ValueError:
-            print("Invalid input. Enter a number only.")
+                print("Invalid staff credentials. Try again.")
+        elif choice == '3':
+            if student_sign_in():  ]
+                student_menu()
+            else:
+                print("Invalid student credentials. Try again.")
+        elif choice == '4':
+            print("Exiting program!")
+            break
+        else:
+            print("Invalid choice, please enter 1, 2, 3, or 4.")
+
+
