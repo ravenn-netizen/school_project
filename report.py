@@ -1,8 +1,8 @@
 def report():
 
     print('\n', 'REPORT MENU', '\n')
-    print("1. group by class")
-    print("2. specific class")
+    print("1. group by section")
+    print("2. specific section")
     print("3. group by stream")
     print("4. specific stream")
     opt = int(input("enter option: "))
