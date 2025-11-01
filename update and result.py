@@ -91,6 +91,28 @@ def progress_report():
         print("No record found")
 
 
-
-
+while True:
+        print("1.Update grade")
+        print("2.Update bus stop")
+        print("3.Update bus number")
+        print("4.Update telephone")
+        print("5.Update staff password ")
+        print("6.Delete Student")
+        print("7.Exit")
+        
+        opt=int(input("Enter option"))
+        if opt==1:
+            update_grade()
+        elif opt==2:
+            update_busstop()
+        elif opt==3:
+            update_busno()
+        elif opt==4:
+            update_tel()
+        elif opt==5:
+            update_staffpass()
+        elif opt==6:
+            del_student()
+        elif opt==7:
+            break
 
