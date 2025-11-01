@@ -20,7 +20,7 @@ def update_busstop():
 
 #update bus no
 def update_busno():
-    gr=int(input("enter student id of the student to be updated:"))
+    gr=input("enter student id of the student to be updated:")
     nbusno=int(input("Enter new bus number:"))
     com="update student set Bus_no={} where Student_id= '{}' ".format(nbusno,gr)
     cursor.execute(com)
@@ -28,7 +28,7 @@ def update_busno():
     
 #update telephone no
 def update_tel():
-    gr=int(input("enter student id of the student to be updated:"))
+    gr=input("enter student id of the student to be updated:")
     nph=input("Enter new phone number of the student:")
     com="update student set Tel='{}' where Student_id='{}'".format(nph,gr)
     cursor.execute(com)
@@ -41,6 +41,10 @@ def update_staffpass():
     com="UPDATE STAFF SET PASSWORD='{}' WHERE STAFFID='{}' ".format(npass,id)
     cursor.execute(com)
     db.commit()
+
+#delete student record
+def del_student():
+    id=in
 
 #stream
 streams={'H01':('English','Home Science','Psychology','Marketing','Sociology'), 'C01':('English','Accountancy','Business Studies','Economics','Mathematics'),'C02':('English','Accountancy','Business Studies','Economics','Informatics Practices'),'C03':('English','Accountancy','Business Studies','Economics','Marketing'),'S01':( 'English','Physics','Chemistry','Mathematics','Biology'),'S02':('English','Physics','Chemistry','Mathematics','Computer Science'),'S03':('English','Physics','Chemistry','Mathematics','Engineering Graphics'),'S04':('English','Physics','Chemistry','Biology','Computer Science'),'S05':('English','Physics','Chemistry','Biology','Bio-Technology'),'S06':('English','Physics','Chemistry','Mathematics','Artificial Intelligence')}
@@ -115,4 +119,5 @@ while True:
             del_student()
         elif opt==7:
             break
+
 
