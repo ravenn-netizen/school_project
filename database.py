@@ -1,7 +1,7 @@
 #to establish python-sql connection
 
 import mysql.connector as sql
-db = sql.connect(host='localhost', user='root', passwd='****',database='SCHOOL')
+db = sql.connect(host='localhost', user='root', passwd='****')
 cursor = db.cursor()
 
 #to create database
@@ -22,14 +22,14 @@ def createTableStudent():
 def createTableAcademic():
     cmd= "USE SCHOOL"
     cursor.execute(cmd)
-    cmd = "CREATE TABLE ACADEMIC(STUDENTID VARCHAR(6) PRIMARY KEY, TERM VARCHAR(6), SUB1 FLOAT, SUB2 FLOAT, SUB3 FLOAT, SUB4 FLOAT, SUB5 FLOAT, AVG FLOAT, REMARKS varchar(10) )"
+    cmd = "CREATE TABLE ACADEMIC(STUDENTID VARCHAR(10) PRIMARY KEY, TERM VARCHAR(6), SUB1 FLOAT, SUB2 FLOAT, SUB3 FLOAT, SUB4 FLOAT, SUB5 FLOAT, AVG FLOAT, REMARKS varchar(10) )"
     cursor.execute(cmd)
 
 #to create table 'STAFF'
 def createTableStaff():
     cmd= "USE SCHOOL"
     cursor.execute(cmd)
-    cmd = "CREATE TABLE STAFF(STAFFID INT PRIMARY KEY, NAME VARCHAR(30), DEPARTMENT VARCHAR(20), CPR INT NOT NULL, PASSWORD VARCHAR(10))"
+    cmd = "CREATE TABLE STAFF(STAFFID VARCHAR(10) PRIMARY KEY, NAME VARCHAR(30), DEPARTMENT VARCHAR(20), CPR INT NOT NULL, PASSWORD VARCHAR(10))"
     cursor.execute(cmd)
 
 #to create table 'ANNOUNCEMENT'
