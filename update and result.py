@@ -90,7 +90,24 @@ def progress_report():
         print("CLASS AND SECTION : ",cl,sec,sep=' ')
     else:
         print("No record found")
-        
-    
+
+def marksmanagement():
+    sid=input("Enter student id:")
+    term=input("Enter term:")
+    query = "SELECT STREAM FROM STUDENT WHERE STUDENT_ID = '{}'".format(sid)
+    cursor.execute(query)
+    stream_code = cursor.fetchone()
+    s1,s2,s3,s4,s5=stream(stream_code[0])
+    s1=int(input("Enter marks of '{}' ".format(s1)))
+    s2=int(input("Enter marks of '{}' ".format(s2)))
+    s3=int(input("Enter marks of '{}' ".format(s3)))
+    s4=int(input("Enter marks of '{}' ".format(s4)))
+    s5=int(input("Enter marks of '{}' ".format(s5)))
+    avg=(s1+s2+s3+s4+s5)/5
+    remark=input("Enter remarks:")
+    com="INSERT INTO ACADEMIC VALUES ('{}','{}',{},{},{},{},{},{},'{}')".format (sid,term,s1,s2,s3,s4,s5,avg,remark)
+    cursor.execute(com)
+    db.commit()
+
 
 
