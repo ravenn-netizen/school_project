@@ -2,8 +2,8 @@ import mysql.connector as sql
 db=sql.connect(host='localhost',user='root',password='1922',database='School')
 cursor=db.cursor()
 def search_STUDENTID():
-  STUDENT_ID=int(input("enter STUDENT_ID"))
-  query="select*from student where grno={}".format(Gr)
+  ID=int(input("enter STUDENT_ID"))
+  query="select*from student where grno={}".format(ID)
   cursor.execute(query)
   rec=cursor.fetchone()
   if rec:
