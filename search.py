@@ -1,7 +1,7 @@
 import mysql.connector as sql
 db=sql.connect(host='localhost',user='root',password='1922',database='School')
 cursor=db.cursor()
-def search_studentid():
+def search_grno():
   Gr=int(input("enter grno"))
   query="select*from student where grno={}".format(Gr)
   cursor.execute(query)
