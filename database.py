@@ -22,7 +22,7 @@ def createTableStudent():
 def createTableAcademic():
     cmd= "USE SCHOOL"
     cursor.execute(cmd)
-    cmd = "CREATE TABLE ACADEMIC(STUDENTID VARCHAR(10) PRIMARY KEY, TERM VARCHAR(6), SUB1 FLOAT, SUB2 FLOAT, SUB3 FLOAT, SUB4 FLOAT, SUB5 FLOAT, AVG FLOAT, REMARKS varchar(10) )"
+    cmd = "CREATE TABLE ACADEMIC(STUDENT_ID VARCHAR(10) PRIMARY KEY, TERM VARCHAR(6), SUB1 FLOAT, SUB2 FLOAT, SUB3 FLOAT, SUB4 FLOAT, SUB5 FLOAT, AVG FLOAT, REMARKS varchar(10) )"
     cursor.execute(cmd)
 
 #to create table 'STAFF'
