@@ -44,7 +44,8 @@ def update_staffpass():
 
 #delete student record
 def del_student():
-    id=in
+    gr=input("Enter student id of student to be removed:")
+    com="DELETE FROM STUDENT WHERE STUDENT_ID = '{}' ".format(gr)
 
 #stream
 streams={'H01':('English','Home Science','Psychology','Marketing','Sociology'), 'C01':('English','Accountancy','Business Studies','Economics','Mathematics'),'C02':('English','Accountancy','Business Studies','Economics','Informatics Practices'),'C03':('English','Accountancy','Business Studies','Economics','Marketing'),'S01':( 'English','Physics','Chemistry','Mathematics','Biology'),'S02':('English','Physics','Chemistry','Mathematics','Computer Science'),'S03':('English','Physics','Chemistry','Mathematics','Engineering Graphics'),'S04':('English','Physics','Chemistry','Biology','Computer Science'),'S05':('English','Physics','Chemistry','Biology','Bio-Technology'),'S06':('English','Physics','Chemistry','Mathematics','Artificial Intelligence')}
@@ -119,5 +120,6 @@ while True:
             del_student()
         elif opt==7:
             break
+
 
 
