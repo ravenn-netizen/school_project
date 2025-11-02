@@ -5,7 +5,8 @@ def staff_sign_up():
     name = input('enter name: ').lower()
     dept = input('enter department: ').lower()
 
-    password = input('create password: ')
+    #here admin is creating acc for staff; so password is set default to 'password' until changed by the staff themselves
+    password = "password"
 
     #to generate staffid
     # staffid eg T0, T1, T2, T78 (basically 'T' + a number)
@@ -42,29 +43,32 @@ def staff_sign_in():
             print(records)
             print('staff id entered does not exist')
             print('1. try again')
-            print('2. create a new account')
+            print('2. exit to main menu')
             opt = int(input('enter option: '))
 
             if opt == 1:
                 continue
-            if opt == 2:
-                #entered id doesnt exist so create a new one
-                staffSignUp()
+            elif opt == 2:
+                return 0
+           
 
-    password = input('enter password: ')
-    
-    cmd = 'SELECT STAFF_ID, PASSWORD FROM STAFF'
+    cmd = "SELECT PASSWORD FROM STAFF WHERE STAFF_ID = '{}'".format(staff_id)
     cursor.execute(cmd)
-    records = cursor.fetchall()
+    password_in_db = cursor.fetchall()[0]
+
     while True:
-        for record in records:
-            if record[0] == staff_id and record[1] == password:
-                break 
+        entered_password = input('enter password: ')
+        if entered_password == password_in_db:
+            return 1 
         else: 
             print('wrong password')
-            password = input('enter password: ')
-    print('welcome to the database :)')
-
+            print('1. try password again')
+            print('2. exit to main menu')
+            opt = int(input('enter option: '))
+            if opt == 1:
+                continue
+            if opt == 2:
+                return 0
 
     
     global user_id
@@ -86,21 +90,34 @@ def student_sign_in():
             break
         else:
             print('student id entered does not exist')
-            print('try again')
+            print('1. try again')
+            print('2. exit to main menu')
+            opt = int(input('enter option: '))
+
+            if opt == 1:
+                continue
+            elif opt == 2:
+                return 0
             
 
-    password = input('enter password: ')
     
-    cmd = 'SELECT STUDENT_ID, PASSWORD FROM STUDENT'
+    cmd = "SELECT PASSWORD FROM STAFF WHERE STAFF_ID = '{}'".format(staff_id)
     cursor.execute(cmd)
-    records = cursor.fetchall()
-    while True:
-        for record in records:
-            if record[0] == student_id and record[1] == password:
-                break 
+    password_in_db = cursor.fetchall()[0]
+
+    while True: 
+        entered_password = input('enter password: ')
+        if entered_password == password_in_db:
+            return 1 
         else: 
-                print('wrong password OR password doesnt match user')
-                password =input('enter password: ')
+            print('wrong password')
+            print('1. try password again')
+            print('2. exit to main menu')
+            opt = int(input('enter option: '))
+            if opt == 1:
+                continue
+            if opt == 2:
+                return 0
 
     print('welcome to the database :)')   
 
@@ -110,3 +127,38 @@ def student_sign_in():
     user_type = 'student'
     
     print('welcome to the database :)')
+
+def admin_sign_in():
+    set_password = "admin's password"
+
+    while True:
+        entered_password = input('Enter password: ')
+        if entered_password == set_password:
+            return 1
+        else:
+            print('wrong password')
+            print("1. try password again")
+            print("2. exit to main menu")
+            opt = int(input("enter option: "))
+            if opt == 1:
+                continue
+            else:
+                return 0 #user is not signed in and gets returned to main menu #refer menu() for reference
+                      
+def admin_menu():
+    print("--- MENU ---")
+    print("1. staff management")
+    print("2. student management")
+
+    opt = int(input("enter option: "))
+
+    if opt == 1:
+        print("1. add new staff")
+        print("2. search staff")
+        print("3. remove staff")
+
+    if opt == 2:
+        print("1. new student")
+        print("2. search student")
+        print("3. remove student")
+
