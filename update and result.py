@@ -68,19 +68,21 @@ def marksmanagement():
     term=input("Enter term:")
     query = "SELECT STREAM FROM STUDENT WHERE STUDENT_ID = '{}'".format(sid)
     cursor.execute(query)
-    stream_code = cursor.fetchone()
-    s1,s2,s3,s4,s5=stream(stream_code[0])
-    s1=int(input("Enter marks of '{}' ".format(s1)))
-    s2=int(input("Enter marks of '{}' ".format(s2)))
-    s3=int(input("Enter marks of '{}' ".format(s3)))
-    s4=int(input("Enter marks of '{}' ".format(s4)))
-    s5=int(input("Enter marks of '{}' ".format(s5)))
+    rec = cursor.fetchone()
+    for stream_code,subject in streams.items():
+        print(stream_code,subject)
+    opt = input("Enter subject code:")
+    print(stream(opt))
+    s1=int(input("Enter marks of subject 1:"))
+    s2=int(input("Enter marks of subject 2:"))
+    s3=int(input("Enter marks of subject 3:"))
+    s4=int(input("Enter marks of subject 4:"))
+    s5=int(input("Enter marks of subject 5:"))
     avg=(s1+s2+s3+s4+s5)/5
     remark=input("Enter remarks:")
     com="INSERT INTO ACADEMIC VALUES ('{}','{}',{},{},{},{},{},{},'{}')".format (sid,term,s1,s2,s3,s4,s5,avg,remark)
     cursor.execute(com)
     db.commit()
-
 
 #PROGRESS REPORT
 #center() is method used to print the string at the centre of the output screen 
@@ -126,6 +128,7 @@ while True:
             del_student()
         elif opt==7:
             break
+
 
 
 
