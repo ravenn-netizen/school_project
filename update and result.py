@@ -64,14 +64,14 @@ def stream(stream_code):
     
 #input marks into table academic
 def marksmanagement():
-    sid=input("Enter student id:")
-    term=input("Enter term:")
+    sid=input("Enter student id:").upper()
+    term=input("Enter term:").upper()
     query = "SELECT STREAM FROM STUDENT WHERE STUDENT_ID = '{}'".format(sid)
     cursor.execute(query)
     rec = cursor.fetchone()
     for stream_code,subject in streams.items():
         print(stream_code,subject)
-    opt = input("Enter subject code:")
+    opt = input("Enter subject code:").upper()
     print(stream(opt))
     s1=int(input("Enter marks of subject 1:"))
     s2=int(input("Enter marks of subject 2:"))
@@ -79,7 +79,7 @@ def marksmanagement():
     s4=int(input("Enter marks of subject 4:"))
     s5=int(input("Enter marks of subject 5:"))
     avg=(s1+s2+s3+s4+s5)/5
-    remark=input("Enter remarks:")
+    remark=input("Enter remarks:").upper()
     com="INSERT INTO ACADEMIC VALUES ('{}','{}',{},{},{},{},{},{},'{}')".format (sid,term,s1,s2,s3,s4,s5,avg,remark)
     cursor.execute(com)
     db.commit()
@@ -88,18 +88,32 @@ def marksmanagement():
 #center() is method used to print the string at the centre of the output screen 
 #syntax of center is text.center(width)
 def progress_report():
-    sid=input("Enter Studend Id of the student: ")
-    term= input("Enter term: ")
+    from tabulate import tabulate
+    sid=input("Enter Studend Id of the student: ").upper()
+    term= input("Enter term: ").upper()
     print("THE INDIAN SCHOOL, KINGDOM OF BAHRAIN".center(400))
     print("PROGRESS REPORT 2025-2026".center(410))
     print(term.center(450))
-    cursor.execute("SELECT * FROM STUDENT WHERE STUDENT_ID='{}' ").format(sid)
+    cmd="SELECT * FROM STUDENT WHERE STUDENT_ID='{}' ".format(sid)
+    cursor.execute(cmd)
     rec=cursor.fetchone()
     if rec:
         gr,name,cl,sec=rec[0],rec[1],rec[5]rec[6]
         print("Student Id : ",gr)
         print("NAME OF STUDENT: ",name)
         print("CLASS AND SECTION : ",cl,sec,sep=' ')
+        #to select rec from academic
+        cmd1="SELECT * FROM ACADEMIC WHERE STUDENT_ID = '{}' AND TERM='{}' ".format(sid,term)
+        cursor.execute(cmd1)
+        #to convert the fetched data from tuple to list
+        rec1= list(cursor.fetchone())
+        opt=rec[7] 
+        s1,s2,s3,s4,s5=stream(opt)
+        data=[[s1,rec1[2]],[s2,rec1[3]],[s3,rec1[4]],[s3,rec1[5]],[s4,rec1[6]],[s5,rec1[7]]]
+        header=['SUBJECT','MARKS']
+        print(tabulate (data,headers=header,tablefmt='grid'))
+        print("AVERAGE:",rec1[-2])
+        print("REMARKS:",rec1[8])
     else:
         print("No record found")
 
@@ -128,6 +142,7 @@ while True:
             del_student()
         elif opt==7:
             break
+
 
 
 
