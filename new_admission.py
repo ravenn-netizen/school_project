@@ -1,4 +1,6 @@
 def new_admission():
+    cmd="USE SCHOOL"
+    cursor.execute(cmd)
     name = input("enter name: ").title()
     dob = input('enter date of birth YYYY-MM-DD: ')
     gender = input('enter gender (M or F): ').upper().strip()
@@ -46,11 +48,10 @@ def new_admission():
         #this code is cryptic aff ikk so lmk if you can find something simpler
     password = 'password'
     
-    cmd = "USE SCHOOL"
-    cursor.execute(cmd)
     cmd = "INSERT INTO STUDENT VALUES('{}', '{}', '{}', '{}', {}, {}, '{}', '{}', '{}', {}, '{}', '{}', '{}', '{}', '{}', '{}' ,'{}')".format(student_id, name, dob, gender, age, grade, section, stream, transport, bus_no, bus_stop, guardian, tel, email, address,cpr, password)
     cursor.execute(cmd)
     db.commit()
+
 
 
 
