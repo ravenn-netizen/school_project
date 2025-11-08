@@ -54,6 +54,37 @@ def new_student():
     db.commit()
 
 
+def new_staff():
+    #usr inputs details
+    cursor.execute('USE SCHOOL')
+    cpr = int(input('enter cpr: '))
+    name = input('enter name: ').lower()
+    dept = input('enter department: ').lower()
+
+    #here admin is creating acc for staff; so password is set default to 'password' until changed by the staff themselves
+    password = "password"
+
+    #to generate staffid
+    # staffid eg T0, T1, T2, T78 (basically 'T' + a number)
+    query = 'SELECT max(STAFF_ID) FROM STAFF'
+    cursor.execute(query)
+    result = cursor.fetchone()
+    if result[0] is None: #this is in case the table is empty and there are no values for staffid, in that case im creating a new one ie 'T0'
+        staff_id = 'T0'
+    else:
+        #this is in case there are already some records inthe table
+        # result[0] to access the id, cuz sql returns it in a tuple
+        # result[0][1:] using slicing t extraxt the numerical part; then converting it into int(), then adding +1
+        # for new id convert into string, concatenate to T, AND VOILA! NEW STAFF ID GUYSS!!
+        #this code is cryptic aff ikk so lmk if can find something simpler
+        staff_id = 'T'+ str(int(result[0][1:]) + 1)
+
+    #to insert details into table STAFF
+    cmd= "INSERT INTO STAFF VALUES('{}', '{}', '{}','{}', '{}')".format(staff_id, name, dept, cpr, password)
+    cursor.execute(cmd)
+    db.commit()
+
+
 
 
 
