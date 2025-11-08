@@ -1,24 +1,29 @@
-def createTableAnnouncements():
+#UNDER TESTING!!
+#PLEASE DONT RUN IT JUST YET
+
+def createTableAnnouncement():
     cmd = "USE SCHOOL"
     cursor.execute(cmd)
-    cmd = "CREATE TABLE ANNOUNCEMENT(REF INT, SENDER varchar(20), RECEIPIENT_TYPE varchar(20), RECEIPIENT varchar(20), DATE date, CONTENT text)"
+    cmd = "CREATE TABLE ANNOUNCEMENT(REF INT, SENDER varchar(20), RECEIPIENT_TYPE varchar(20), RECEIPIENT varchar(20), DATE date, SUBJECT varchar(200), CONTENT text)" #here text is a datatype which is basically a string with no length constraint
     cursor.execute(cmd)
 
+cursor.execute('USE SCHOOL')
 def send_announcement():
+    
     sender = user_id
 
     #to input receiver and their type
     print('choose receiver type')
     print('1. grade')
-    print('2. class')
+    print('2. section')
     print('3. student')
     opt = int(input('enter option: '))
     if opt==1:
         receipient_type = 'grade'
         receipient = input('enter grade: ')
     elif opt==2:
-        receipient_type  = 'class'
-        receipient = input('enter class (grade&section): ')
+        receipient_type  = 'section'
+        receipient = input('enter section (grade&section): ')
     elif opt==3:
         receipient_type = 'student'
         receipient = input('enter id: ')
@@ -37,16 +42,9 @@ def send_announcement():
     date = input('enter date YYYY-MM-DD: ')
     subject = input('enter subject: ')
     content = input('enter content: ')
-
-    filename = "message" + str(ref)
-    with open(filename, "w") as file:
-        file.write("subject: " + subject + '\n')
-        file.write("from: " + user_id + '\n')
-        file.write("date: "+ date + '\n')
-        file.write(content)
     
     #to add into to file 
-    cmd = "INSERT INTO ANNOUNCEMENT VALUES({}, '{}', '{}', '{}', '{}', '{}')".format(ref, sender, receipient_type, receipient, date, filename)
+    cmd = "INSERT INTO ANNOUNCEMENT VALUES({}, '{}', '{}', '{}', '{}','{}', '{}')".format(ref, sender, receipient_type, receipient, date, subject, content)
     cursor.execute(cmd)
 
     db.commit()
@@ -56,22 +54,27 @@ def received_announcement():
     #to check for announcements for user and add to their inbox 
     cmd = "SELECT GRADE, SECTION FROM STUDENT"
     cursor.execute(cmd)
-    grade, section = cursor.fetchall()
+    grade, section = cursor.fetchall()[0]
     
     cmd = "SELECT * FROM ANNOUNCEMENT"
     cursor.execute(cmd)
     records = cursor.fetchall()
 
+    if records is None or records[0] is None:
+        print('No announcements in inbox')
+        print('Check another time :)')
+        return 0
+
     inbox=[]
-    for _ in range(len(records)):
+    for i in range(len(records)):
         record = records[i]
         receipient_type = record[2]
         receipient = record[3]
         if receipient_type == 'grade' and receipient == grade:
             inbox.append(record)
 
-        elif receipient_type == 'class':
-            receipient.split('&')
+        elif receipient_type == 'section':
+            receipient = receipient.split('&')
 
             if receipient[0].strip() == grade and receipient[1].strip() == section:
                 inbox.append(record)
@@ -82,23 +85,39 @@ def received_announcement():
             
     #to open each message
     print('announcements in inbox: ', len(inbox))
-    if len(inbox)>0:
-    
+
+    if len(inbox) > 0:
         for i in range(len(inbox)):
             record = inbox[i]
-            message = open(record[-1], 'r')
-            subject = readline(message)
-            print(i+1, '. ', subject)
+            i+=1
+            print(str(i)+'.', record[-2])  #here record[-2] is the subject of the announcement
 
-        while True:
-            opt = int(input('enter message to open: '))
-            message = inbox[opt-1]
-            print('subject: ', readline(message), end='\n\n')
-            print(read(message), end='\n\n')
+            while true:
 
-            opt = input('open another message? (y/n): ').strip().lower()
-            if opt == 'n':
-                break
-    
+                print('\nEnter 0 for option to exit')
+                opt = int(input('enter message to open: '))
+                if opt > len(inbox):  #to check if entered optionis within range; if not loops over
+                    print('enter valid option')
+                    continue 
+
+                message = inbox[opt-1]
+
+                if opt == 0:
+                    return 0
+                
+                #to find sending staff's name as only their staff_id is stored in the table    
+                cmd = "SELECT NAME FROM STAFF WHERE STAFF_ID = '{}'".format(message[1])
+                cursor.execute(cmd)
+                sender_name = cursor.fetchone()[0]
+                print('FROM:', sender_name, '\n')
+                print('SUBJECT:', message[-2], '\n')
+                print('CONTENT:', '\n', message[-1], '\n')
+
+
     else:
-        print('no announcements in inbox')
+        print('No announcement in inbox')
+        print('Check another time :)')
+
+user_id = 'T1'
+#createTableAnnouncement()
+send_announcement()
