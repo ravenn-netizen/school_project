@@ -99,7 +99,7 @@ def progress_report():
     rec=cursor.fetchone()
     #rec contains the record of student from the table student
     if rec:
-        gr,name,cl,sec=rec[0],rec[1],rec[5]rec[6]
+        gr,name,cl,sec=rec[0],rec[1],rec[5],rec[6]
         print("Student Id : ",gr)
         print("NAME OF STUDENT: ",name)
         print("CLASS AND SECTION : ",cl,sec,sep=' ')
@@ -146,6 +146,7 @@ while True:
             del_student()
         elif opt==7:
             break
+
 
 
 
