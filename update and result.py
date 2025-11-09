@@ -97,6 +97,7 @@ def progress_report():
     cmd="SELECT * FROM STUDENT WHERE STUDENT_ID='{}' ".format(sid)
     cursor.execute(cmd)
     rec=cursor.fetchone()
+    #rec contains the record of student from the table student
     if rec:
         gr,name,cl,sec=rec[0],rec[1],rec[5]rec[6]
         print("Student Id : ",gr)
@@ -105,11 +106,14 @@ def progress_report():
         #to select rec from academic
         cmd1="SELECT * FROM ACADEMIC WHERE STUDENT_ID = '{}' AND TERM='{}' ".format(sid,term)
         cursor.execute(cmd1)
-        #to convert the fetched data from tuple to list
-        rec1= list(cursor.fetchone())
-        opt=rec[7] 
+        rec1= cursor.fetchone()
+        #rec1 contains record of student from the table academic
+       
+        #to select the stream of the student from the table student 
+        opt=rec[7]           
         s1,s2,s3,s4,s5=stream(opt)
-        data=[[s1,rec1[2]],[s2,rec1[3]],[s3,rec1[4]],[s3,rec1[5]],[s4,rec1[6]],[s5,rec1[7]]]
+        data=[[s1,rec1[2]],[s2,rec1[3]],[s3,rec1[4]],[s3,rec1[5]],[s4,rec1[6]],[s5,rec1[7]]] 
+        #data will be now like [[sub1,mark],[sub2,mark],etc]
         header=['SUBJECT','MARKS']
         print(tabulate (data,headers=header,tablefmt='grid'))
         print("AVERAGE:",rec1[-2])
@@ -142,6 +146,7 @@ while True:
             del_student()
         elif opt==7:
             break
+
 
 
 
