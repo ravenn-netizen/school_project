@@ -80,7 +80,12 @@ def marksmanagement():
     s5=int(input("Enter marks of subject 5:"))
     avg=(s1+s2+s3+s4+s5)/5
     remark=input("Enter remarks:").upper()
-    com="INSERT INTO ACADEMIC VALUES ('{}','{}',{},{},{},{},{},{},'{}')".format (sid,term,s1,s2,s3,s4,s5,avg,remark)
+
+    cmd = "SELECT MAX(SNO) FROM ACADEMIC"
+    cursor.execute(cmd)
+    new_sno = cursor.fetchone()[0] + 1
+    
+    com="INSERT INTO ACADEMIC VALUES ({}, '{}','{}',{},{},{},{},{},{},'{}')".format (new_sno, sid,term,s1,s2,s3,s4,s5,avg,remark)
     cursor.execute(com)
     db.commit()
 
@@ -146,6 +151,7 @@ while True:
             del_student()
         elif opt==7:
             break
+
 
 
 
