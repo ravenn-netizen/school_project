@@ -4,7 +4,7 @@
 def createTableAnnouncement():
     cmd = "USE SCHOOL"
     cursor.execute(cmd)
-    cmd = "CREATE TABLE ANNOUNCEMENT(REF INT, SENDER varchar(20), RECEIPIENT_TYPE varchar(20), RECEIPIENT varchar(20), DATE date, SUBJECT varchar(200), CONTENT text)" #here text is a datatype which is basically a string with no length constraint
+    cmd = "CREATE TABLE ANNOUNCEMENT(REF INT, SENDER varchar(20), RECEIPIENT_TYPE varchar(20), RECEIPIENT varchar(20), DATE date, SUBJECT text, CONTENT text)" #here text is a datatype which is basically a string with no length constraint
     cursor.execute(cmd)
 
 cursor.execute('USE SCHOOL')
