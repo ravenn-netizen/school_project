@@ -23,7 +23,7 @@ def send_announcement():
         receipient = input('enter grade: ')
     elif opt==2:
         receipient_type  = 'section'
-        receipient = input('enter section (grade&section): ')
+        receipient = input('enter grade and section (grade&section): ')
     elif opt==3:
         receipient_type = 'student'
         receipient = input('enter id: ')
@@ -113,11 +113,7 @@ def received_announcement():
                 print('SUBJECT:', message[-2], '\n')
                 print('CONTENT:', '\n', message[-1], '\n')
 
-
     else:
         print('No announcement in inbox')
         print('Check another time :)')
 
-user_id = 'T1'
-#createTableAnnouncement()
-send_announcement()
