@@ -125,13 +125,19 @@ def admin_menu():
     opt = int(input("enter option: "))
 
     if opt == 1:
-        print("1. add new staff")
-        print("2. search staff")
-        print("3. remove staff")
+        new_staff()
 
     if opt == 2:
         print("1. new student")
         print("2. search student")
         print("3. remove student")
+        choice = int(input("Enter choice :"))
+        if choice == 1:
+            new_student()
+        elif choice == 2:
+            searchSTUDENTID()
+        elif choice == 3:
+            delstudent()
+
 
 
