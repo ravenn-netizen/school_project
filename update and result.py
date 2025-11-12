@@ -83,7 +83,11 @@ def marksmanagement():
 
     cmd = "SELECT MAX(SNO) FROM ACADEMIC"
     cursor.execute(cmd)
-    new_sno = cursor.fetchone()[0] + 1
+    result = cursor.fetchone()
+    if result [0] is None:
+        new_sno=1
+    else:
+        new_sno=result[0]+1
     
     com="INSERT INTO ACADEMIC VALUES ({}, '{}','{}',{},{},{},{},{},{},'{}')".format (new_sno, sid,term,s1,s2,s3,s4,s5,avg,remark)
     cursor.execute(com)
@@ -117,12 +121,12 @@ def progress_report():
         #to select the stream of the student from the table student 
         opt=rec[7]           
         s1,s2,s3,s4,s5=stream(opt)
-        data=[[s1,rec1[2]],[s2,rec1[3]],[s3,rec1[4]],[s3,rec1[5]],[s4,rec1[6]],[s5,rec1[7]]] 
+        data=[[s1,rec1[3]],[s2,rec1[4]],[s3,rec1[5]],[s4,rec1[6]],[s5,rec1[7]]] 
         #data will be now like [[sub1,mark],[sub2,mark],etc]
         header=['SUBJECT','MARKS']
         print(tabulate (data,headers=header,tablefmt='grid'))
         print("AVERAGE:",rec1[-2])
-        print("REMARKS:",rec1[8])
+        print("REMARKS:",rec1[-1])
     else:
         print("No record found")
 
@@ -151,6 +155,7 @@ while True:
             del_student()
         elif opt==7:
             break
+
 
 
 
