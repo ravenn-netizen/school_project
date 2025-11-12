@@ -12,7 +12,7 @@ def update_grade():
 
 #update bus stop
 def update_busstop():
-    gr=input("enter student id of the student to be updated:"))
+    gr=input("enter student id of the student to be updated:")
     nbusstop=input("Enter new bus stop of the student:")
     com="update student set Bus_stop='{}' where Student_id ='{}' ".format(nbusstop,gr)
     cursor.execute(com)
@@ -151,6 +151,7 @@ while True:
             del_student()
         elif opt==7:
             break
+
 
 
 
