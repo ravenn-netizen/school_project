@@ -4,7 +4,7 @@
 def createTableAnnouncement():
     cmd = "USE SCHOOL"
     cursor.execute(cmd)
-    cmd = "CREATE TABLE ANNOUNCEMENT(REF INT, SENDER varchar(20), RECEIPIENT_TYPE varchar(20), RECEIPIENT varchar(20), DATE date, SUBJECT text, CONTENT text)" #here text is a datatype which is basically a string with no length constraint
+    cmd = "CREATE TABLE ANNOUNCEMENT(REF INT, SENDER INT, RECEIPIENT_TYPE varchar(20), RECEIPIENT varchar(20), DATE date, SUBJECT text, CONTENT text)" #here text is a datatype which is basically a string with no length constraint
     cursor.execute(cmd)
 
 cursor.execute('USE SCHOOL')
@@ -44,7 +44,7 @@ def send_announcement():
     content = input('enter content: ')
     
     #to add into to file 
-    cmd = "INSERT INTO ANNOUNCEMENT VALUES({}, '{}', '{}', '{}', '{}','{}', '{}')".format(ref, sender, receipient_type, receipient, date, subject, content)
+    cmd = "INSERT INTO ANNOUNCEMENT VALUES({}, '{}', {}, '{}', '{}','{}', '{}')".format(ref, sender, receipient_type, receipient, date, subject, content)
     cursor.execute(cmd)
 
     db.commit()
@@ -80,11 +80,11 @@ def received_announcement():
                 inbox.append(record)
 
         elif receipient_type == 'student':
-            if receipient == user_id:
+            if int(receipient) == user_id:
                 inbox.append(record)
             
     #to open each message
-    print('announcements in inbox: ', len(inbox))
+    print('announcements in inbox:', len(inbox))
 
     if len(inbox) > 0:
         for i in range(len(inbox)):
@@ -96,14 +96,15 @@ def received_announcement():
 
                 print('\nEnter 0 for option to exit')
                 opt = int(input('enter message to open: '))
-                if opt > len(inbox):  #to check if entered optionis within range; if not loops over
+                if opt == 0:
+                    return 0                
+                elif opt > len(inbox):  #to check if entered optionis within range; if not loops over
                     print('enter valid option')
                     continue 
 
                 message = inbox[opt-1]
 
-                if opt == 0:
-                    return 0
+
                 
                 #to find sending staff's name as only their staff_id is stored in the table    
                 cmd = "SELECT NAME FROM STAFF WHERE STAFF_ID = '{}'".format(message[1])
