@@ -1,4 +1,5 @@
 #under improvisation
+#probs with one function
 #finished testing
 
 import mysql.connector as sql
@@ -8,13 +9,6 @@ cursor = db.cursor()
 from tabulate import tabulate
 
 streams={'H01':('English','Home Science','Psychology','Marketing','Sociology'), 'C01':('English','Accountancy','Business Studies','Economics','Mathematics'),'C02':('English','Accountancy','Business Studies','Economics','Informatics Practices'),'C03':('English','Accountancy','Business Studies','Economics','Marketing'),'S01':( 'English','Physics','Chemistry','Mathematics','Biology'),'S02':('English','Physics','Chemistry','Mathematics','Computer Science'),'S03':('English','Physics','Chemistry','Mathematics','Engineering Graphics'),'S04':('English','Physics','Chemistry','Biology','Computer Science'),'S05':('English','Physics','Chemistry','Biology','Bio-Technology'),'S06':('English','Physics','Chemistry','Mathematics','Artificial Intelligence')}
-
-def stream(stream_code):
-    global streams
-    if stream_code in streams:
-        subject=streams[stream_code]
-        sub1,sub2,sub3,sub4,sub5=subject[0],subject[1],subject[2],subject[3],subject[4]
-    return sub1,sub2,sub3,sub4,sub5
     
 def report_group_by_section():
     grade = int(input('enter grade: '))
@@ -23,61 +17,67 @@ def report_group_by_section():
     records = cursor.fetchall()
 
     if records is None or records==[]:
-                print('No records found corresponding to entered credentials')
+                print('No records found corresponding to entered grade')
                 return 0
             
-    table_headers = [ 'GRADE','SECTION', 'NO. OF STUDENTS', 'CLASS AVERAGE', 'CLASS MINIMUM', 'CLASS MAXIMUM' ]
-    print(tabulate( records, headers = table_headers, tablefmt='grid'))
-    print()
+    table_headers = ['Grade','Section', 'No. of students', 'Class average', 'Class minimum', 'Class maximum']
+    print(tabulate(records, headers =table_headers, tablefmt="psql"))
 
 
 def report_specific_section():
     grade = int(input('enter grade: '))
-    section = input("enter section: ")
+    section = input("enter section: ").upper()
 
     query = "SELECT NAME, S.STUDENT_ID, A.SUB1, A.SUB2, A.SUB3, A.SUB4, A.SUB5, A.AVG, A.REMARKS FROM STUDENT S NATURAL JOIN ACADEMIC A WHERE GRADE={} AND SECTION='{}' ORDER BY NAME".format(grade, section)
     cursor.execute(query)
     records = cursor.fetchall()
 
     if records is None or records == []:
-                print('No records found corresponding to entered credentials')
+                print('No records found corresponding to entered grade and/or section')
                 return 0
     
     query = "SELECT STREAM FROM STUDENT WHERE GRADE = {} AND SECTION = '{}'".format(grade, section)
     cursor.execute(query)
     stream_code = cursor.fetchone()[0]
-    print(stream_code)
-    sub1, sub2, sub3, sub4, sub5 = stream(stream_code)
-    print(subq1, sub2, sub3, sub4, sub5, stream(stream_code))
-    
-    table_headers = [ 'NAME', 'STUDENT_ID', sub1, sub2, sub3, sub4, sub5, 'AVERAGE', 'REMARK']
-    print(tabulate( records, headers = table_headers,  tablefmt = 'grid') )
+    sub1, sub2, sub3, sub4, sub5 = streams[stream_code]
 
+    
+    table_headers =['NAME', 'STUDENT_ID', sub1, sub2, sub3, sub4, sub5, 'AVERAGE', 'REMARK']
+    print(tabulate(records, headers=table_headers, tablefmt = 'grid'))
+    print()
+    
     query = "SELECT COUNT(S.STUDENT_ID), MIN(A.AVG) , MAX(A.AVG), AVG(A.AVG)  FROM STUDENT S NATURAL JOIN ACADEMIC A WHERE GRADE={}, SECTION='{}'".format(grade, section)
     cursor.execute(query)
-    records = cursor.fetchall()
-    if records is None or records==[]:
+    rec= cursor.fetchone()
+    if rec is None or rec==[]:
                 print('No records found corresponding to entered credentials')
                 return 0
             
-    table_headers = ['NO. OF STUDENTS', 'CLASS MINIMUM', 'CLASS MAXIMUM', 'CLASS AVERAGE' ]
-    print(tabulate(records, headers=table_headers, tablefmt = 'grid'))
+    print('Number of students enrolled:', rec[0])
+    print('Class average score:', rec[1])
+    print('Class minimum score:', rec[2])
+    print('Class maximum score:', rec[3])
     print()
+    
 def report_group_by_stream():
     grade = int(input('Enter grade: '))
     query = "SELECT S.STREAM, COUNT(A.STUDENT_ID), MIN(A.AVG), MAX(A.AVG), AVG(A.AVG) FROM STUDENT S NATURAL JOIN ACADEMIC A WHERE S.GRADE={} GROUP BY S.STREAM ORDER BY S.STREAM".format(grade)
     cursor.execute(query)
-    records = cursor.fetchall()
+    rec= cursor.fetchone()
     
-    if records is None or records == []:
+    if rec is None or rec == []:
                 print('No records found corresponding to entered credentials')
                 return 0
-    table_headers = ['STREAM_CODE', 'NO OF STUDENTS', 'STREAM MINIMUM', 'STREAM MAXIMUM', 'STREAM AVERAGE' ]
-    print(tabulate(records, headers=table_headers, tablefmt='grid'))
+    print('Stream:', rec[0])
+    print('Number of students enrolled:', rec[1])
+    print('Minimum score:', rec[2])
+    print('Maximum score:', rec[3])
+    print('Average score:', rec[4])
     print()
+    
 def report_specific_stream():
-for stream_code in streams:
-    print(stream_code, streams[stream_code])
+    for stream_code in streams:
+        print(stream_code, streams[stream_code])
     print()
     stream_code = input('enter stream code: ')
     if stream_code not in streams:
@@ -88,44 +88,48 @@ for stream_code in streams:
         sub = 'SUB'+str(i)
         query = "SELECT MIN(A.{}), MAX(A.{}), AVG(A.{}) FROM STUDENT S NATURAL JOIN ACADEMIC A WHERE S.STREAM ='{}'".format(sub, sub, sub, stream_code)  
         cursor.execute(query)
-        record = cursor.fetchone()
-        if record is None or record[0] is None:
+        rec = cursor.fetchone()
+        if rec is None or rec[0] is None:
                 print('No records found corresponding to entered credentials')
                 return 0
-        table_headers = ['MINIMUM', 'MAXIMUM', 'AVERAGE']
         print(subject)
-        print(tabulate([record], headers=table_headers, tablefmt='grid'))
+        print('Minimum score:', rec[0])
+        print('Maximum score:', rec[1])
+        print('Average score:', rec[2])
         print()
         i+=1
-        
+            
     query = "SELECT  COUNT(S.STUDENT_ID), AVG(A.AVG), MIN(A.AVG), MAX(A.AVG) FROM STUDENT S NATURAL JOIN ACADEMIC A WHERE S.STREAM='{}'".format(stream_code)
     cursor.execute(query)
-    record = cursor.fetchone()
-    if record is None or record[0] is None:
-                print('No records found corresponding to entered credentials')
-                return 0
-            
-    print(tabulate([record], headers=['NO. OF STUDENTS', 'STREAM AVERAGE', 'STREAM MIN', 'STREAM_MAX'], tablefmt = 'grid'))   
+    rec = cursor.fetchone()
+    if rec is None or rec[0] is None:
+        print('No records found corresponding to entered credentials')
+        return 0
+                
+    print('Number of students enrolled:', rec[0])
+    print('Minimum score:', rec[1])
+    print('Maximum score:', rec[2])
+    print('Average score:', rec[3])
     print()
     
 def report():
+    while True:
+        print('\n', 'REPORT MENU', '\n')
+        print("1. group by section")
+        print("2. specific section")
+        print("3. group by stream")
+        print("4. specific stream")
+        print("5. exit\n")
+        opt = int(input("enter option: "))
 
-    print('\n', 'REPORT MENU', '\n')
-    print("1. group by section")
-    print("2. specific section")
-    print("3. group by stream")
-    print("4. specific stream")
-    opt = int(input("enter option: "))
-
-    if opt == 1:
-        report_group_by_section()    
-
-    elif opt == 2:
-        report_specific_section()
-        
-    elif opt == 3:
-        report_group_by_stream()
-    elif opt == 4:
-        report_specific_stream()
-
-
+        if opt == 1:
+            report_group_by_section()    
+        elif opt == 2:
+            report_specific_section()
+        elif opt == 3:
+            report_group_by_stream()
+        elif opt == 4:
+            report_specific_stream()
+        elif opt ==5:
+            return 0
+report()
