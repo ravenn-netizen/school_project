@@ -13,14 +13,14 @@ def update_grade():
 #update bus stop
 def update_busstop():
     gr=input("enter student id of the student to be updated:").upper()
-    nbusstop=input("Enter new bus stop of the student:")
+    nbusstop=input("Enter new bus stop of the student:").lower()
     com="update student set Bus_stop='{}' where Student_id ='{}' ".format(nbusstop,gr)
     cursor.execute(com)
     db.commit()
 
 #update bus no
 def update_busno():
-    gr=input("enter student id of the student to be updated:")
+    gr=input("enter student id of the student to be updated:").upper()
     nbusno=int(input("Enter new bus number:"))
     com="update student set Bus_no={} where Student_id= '{}' ".format(nbusno,gr)
     cursor.execute(com)
@@ -28,7 +28,7 @@ def update_busno():
     
 #update telephone no
 def update_tel():
-    gr=input("enter student id of the student to be updated:")
+    gr=input("enter student id of the student to be updated:").upper()
     nph=input("Enter new phone number of the student:")
     com="update student set Tel='{}' where Student_id='{}'".format(nph,gr)
     cursor.execute(com)
@@ -151,6 +151,7 @@ while True:
             del_student()
         elif opt==7:
             break
+
 
 
 
