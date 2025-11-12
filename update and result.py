@@ -50,7 +50,7 @@ def del_student():
     cursor.execute(com)
     cursor.execute(com1)
     db.commit()
-#even if the entered id is not present in either or onre of them it doesn't show any error
+#even if the entered id is not present in either or one of them it doesn't show any error
 
 
 #stream
@@ -151,6 +151,7 @@ while True:
             del_student()
         elif opt==7:
             break
+
 
 
 
