@@ -3,13 +3,12 @@ def staff_sign_in():
     cursor.execute('USE SCHOOL')
     
     while True:
-        staff_id =input('enter staff id: ')
+        staff_id =int(input('enter staff id: '))
         cmd = 'SELECT STAFF_ID FROM STAFF'
         cursor.execute(cmd)
         records = cursor.fetchall()
 
         if (staff_id,) in records:
-            print(records)
             break
         else:
             print(records)
@@ -21,17 +20,16 @@ def staff_sign_in():
             if opt == 1:
                 continue
             elif opt == 2:
-                return 0
-           
+                return 0     
 
     cmd = "SELECT PASSWORD FROM STAFF WHERE STAFF_ID = '{}'".format(staff_id)
     cursor.execute(cmd)
-    password_in_db = cursor.fetchall()[0]
+    password_in_db = cursor.fetchone()[0]
 
     while True:
         entered_password = input('enter password: ')
         if entered_password == password_in_db:
-            return 1 
+            return staff_id
         else: 
             print('wrong password')
             print('1. try password again')
@@ -41,20 +39,18 @@ def staff_sign_in():
                 continue
             if opt == 2:
                 return 0
-
-    
-    global user_id
-    user_id = staff_id
-    global user_type 
-    user_type = 'staff'
     
     print('welcome to the database :)')
+#also include the below three lines of code when using the function          
+user_id = staff_sign_in()
+if user_id == 0:
+    continue
 
 def student_sign_in():
     cursor.execute('USE SCHOOL')
     
     while True:
-        student_id = input('enter student id: ')
+        student_id = int(input('enter student id: '))
         cmd = 'SELECT STUDENT_ID FROM STUDENT'
         cursor.execute(cmd)
         records = cursor.fetchall()
@@ -70,8 +66,6 @@ def student_sign_in():
                 continue
             elif opt == 2:
                 return 0
-            
-
     
     cmd = "SELECT PASSWORD FROM STAFF WHERE STAFF_ID = '{}'".format(staff_id)
     cursor.execute(cmd)
@@ -80,7 +74,7 @@ def student_sign_in():
     while True: 
         entered_password = input('enter password: ')
         if entered_password == password_in_db:
-            return 1 
+            return student_id
         else: 
             print('wrong password')
             print('1. try password again')
@@ -91,15 +85,13 @@ def student_sign_in():
             if opt == 2:
                 return 0
 
-    print('welcome to the database :)')   
-
-    global user_id
-    user_id = student_id
-    global user_type 
-    user_type = 'student'
+    print('welcome to the database :)')  
     
-    print('welcome to the database :)')
-
+#also include the below three lines of code when using the function          
+user_id = student_sign_in()
+if user_id == 0:
+    continue
+    
 def admin_sign_in():
     set_password = "admin's password"
 
@@ -138,6 +130,7 @@ def admin_menu():
             searchSTUDENTID()
         elif choice == 3:
             delstudent()
+
 
 
 
