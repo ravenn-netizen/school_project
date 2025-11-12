@@ -1,8 +1,8 @@
 streams={'H01':('English','Home Science','Psychology','Marketing','Sociology'), 'C01':('English','Accountancy','Business Studies','Economics','Mathematics'),'C02':('English','Accountancy','Business Studies','Economics','Informatics Practices'),'C03':('English','Accountancy','Business Studies','Economics','Marketing'),'S01':( 'English','Physics','Chemistry','Mathematics','Biology'),'S02':('English','Physics','Chemistry','Mathematics','Computer Science'),'S03':('English','Physics','Chemistry','Mathematics','Engineering Graphics'),'S04':('English','Physics','Chemistry','Biology','Computer Science'),'S05':('English','Physics','Chemistry','Biology','Bio-Technology'),'S06':('English','Physics','Chemistry','Mathematics','Artificial Intelligence')}
 
 def new_student():
-    cmd="USE SCHOOL"
-    cursor.execute(cmd)
+
+    cursor.execute("USE SCHOOL")
     name = input("enter name: ").title()
     dob = input('enter date of birth YYYY-MM-DD: ')
     gender = input('enter gender (M or F): ').upper().strip()
@@ -25,31 +25,26 @@ def new_student():
     else:
         bus_no , bus_stop  = 0, 'None' 
 
-    guardian = input("enter name of guardian(s) (each separated by a \' & \'): ").capitalize()
+    guardian = input("enter name of guardian(s) (each separated by a \' & \'): ").title()
     tel = input('enter phone number: ')
-    email = input('enter email: ')
+    email = input('enter email: ').strip()
     address = input('enter address ( [flat] & [building] & [road] & [block] & [area] ')
-    cpr = input('enter student\'s cpr number: ')
+    cpr = input('enter student\'s cpr number: ').strip()
 
     #to generate new student_id
     cmd = "SELECT MAX(STUDENT_ID) FROM STUDENT"
     cursor.execute(cmd)
     result = cursor.fetchone()
     
-    if result[0] is None:
-        #this is in case the table is empty, so we are entering the first student id ie S0
-        student_id = 'S0'
+    if result[0] is None or result== []:
+        student_id = 1
     else:
-        i = int(result[0][1:]) +1 
-        student_id = 'S'+ str(i)
-        #this is in case there are already some records inthe table
-        # result[0] to access the id, cuz sql returns it in a tuple
-        # result[0][1:] using slicing t extraxt the numerical part; then converting it into int(), then adding +1 to generate a new one
-        # for new id convert into string, concatenate to S, AND VOILA! NEW STUDENT ID GUYSS!!
-        #this code is cryptic aff ikk so lmk if you can find something simpler
+        student_id = result + 1
+#password is set default to password until changed by the student
     password = 'password'
+    print('Generated student id is', student_id)
     
-    cmd = "INSERT INTO STUDENT VALUES('{}', '{}', '{}', '{}', {}, {}, '{}', '{}', '{}', {}, '{}', '{}', '{}', '{}', '{}', '{}' ,'{}')".format(student_id, name, dob, gender, age, grade, section, stream, transport, bus_no, bus_stop, guardian, tel, email, address,cpr, password)
+    cmd = "INSERT INTO STUDENT VALUES({}, '{}', '{}', '{}', {}, {}, '{}', '{}', '{}', {}, '{}', '{}', '{}', '{}', '{}', '{}' ,'{}')".format(student_id, name, dob, gender, age, grade, section, stream, transport, bus_no, bus_stop, guardian, tel, email, address,cpr, password)
     cursor.execute(cmd)
     db.commit()
 
@@ -65,28 +60,16 @@ def new_staff():
     password = "password"
 
     #to generate staffid
-    # staffid eg T0, T1, T2, T78 (basically 'T' + a number)
     query = 'SELECT max(STAFF_ID) FROM STAFF'
     cursor.execute(query)
     result = cursor.fetchone()
-    if result[0] is None: #this is in case the table is empty and there are no values for staffid, in that case im creating a new one ie 'T0'
-        staff_id = 'T0'
+    if result[0] is None or result==[]: 
+        staff_id = 1
     else:
-        #this is in case there are already some records inthe table
-        # result[0] to access the id, cuz sql returns it in a tuple
-        # result[0][1:] using slicing t extraxt the numerical part; then converting it into int(), then adding +1
-        # for new id convert into string, concatenate to T, AND VOILA! NEW STAFF ID GUYSS!!
-        #this code is cryptic aff ikk so lmk if can find something simpler
-        staff_id = 'T'+ str(int(result[0][1:]) + 1)
+        staff_id = result[0] + 1
+    print('Generated staff id is', staff_id)
 
     #to insert details into table STAFF
-    cmd= "INSERT INTO STAFF VALUES('{}', '{}', '{}','{}', '{}')".format(staff_id, name, dept, cpr, password)
+    cmd= "INSERT INTO STAFF VALUES({}, '{}', '{}','{}', '{}')".format(staff_id, name, dept, cpr, password)
     cursor.execute(cmd)
     db.commit()
-
-
-
-
-
-
-
