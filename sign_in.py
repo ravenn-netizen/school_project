@@ -1,3 +1,6 @@
+#complete
+#under testing
+
 def staff_sign_in():
     # to enter staff id and check if in database
     cursor.execute('USE SCHOOL')
@@ -130,6 +133,7 @@ def admin_menu():
             searchSTUDENTID()
         elif choice == 3:
             delstudent()
+
 
 
 
