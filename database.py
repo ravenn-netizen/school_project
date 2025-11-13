@@ -29,7 +29,7 @@ def createTableAcademic():
 def createTableStaff():
     cmd= "USE SCHOOL"
     cursor.execute(cmd)
-    cmd = "CREATE TABLE STAFF(STAFFID INT PRIMARY KEY, NAME VARCHAR(200), DEPARTMENT VARCHAR(20), CPR INT NOT NULL, PASSWORD VARCHAR(10))"
+    cmd = "CREATE TABLE STAFF(STAFF_ID INT PRIMARY KEY, NAME VARCHAR(200), DEPARTMENT VARCHAR(20), CPR INT NOT NULL, PASSWORD VARCHAR(10))"
     cursor.execute(cmd)
 
 #to create table 'ANNOUNCEMENT'
