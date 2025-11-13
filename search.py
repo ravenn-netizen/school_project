@@ -15,8 +15,8 @@ def search_STUDENTID():
     else:
         print("No record found")
 def search_class():
-    Class = input("Enter class: ")
-    query = "SELECT * FROM student WHERE class = '{}'".format(Class)
+    cl = input("Enter class: ")
+    query = "SELECT * FROM student WHERE grade = '{}'".format(cl)
     cursor.execute(query)
     rec = cursor.fetchall()
     if rec:
