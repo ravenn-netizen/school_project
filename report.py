@@ -1,9 +1,9 @@
-#under improvisation
-#probs with one function
+
+#probs with report_specific_section function
 #finished testing
 
 import mysql.connector as sql
-db = sql.connect(host='localhost', user='root', passwd='7563', database='school')
+db = sql.connect(host='localhost', user='root', passwd='****', database='school')
 cursor = db.cursor()
 
 from tabulate import tabulate
@@ -12,11 +12,12 @@ streams={'H01':('English','Home Science','Psychology','Marketing','Sociology'), 
     
 def report_group_by_section():
     grade = int(input('enter grade: '))
-    query = "SELECT S.GRADE, S.SECTION, COUNT(A.STUDENT_ID), AVG(A.AVG), MIN(A.AVG), MAX(A.AVG) FROM STUDENT S NATURAL JOIN ACADEMIC A WHERE S.GRADE = {} GROUP BY S.SECTION ORDER BY S.SECTION".format(grade)
+    term = input("enter term ('first', 'second' or 'third'): ").lower()
+    query = "SELECT S.GRADE, S.SECTION, COUNT(A.STUDENT_ID), AVG(A.AVG), MIN(A.AVG), MAX(A.AVG) FROM STUDENT S NATURAL JOIN ACADEMIC A WHERE S.GRADE = {} AND A.TERM= '{}' GROUP BY S.SECTION ORDER BY S.SECTION".format(grade, term)
     cursor.execute(query)
     records = cursor.fetchall()
 
-    if records is None or records==[]:
+    if not records: #if no records found this statement is true and escapes the function
                 print('No records found corresponding to entered grade')
                 return 0
             
@@ -27,16 +28,16 @@ def report_group_by_section():
 def report_specific_section():
     grade = int(input('enter grade: '))
     section = input("enter section: ").upper()
-
-    query = "SELECT NAME, S.STUDENT_ID, A.SUB1, A.SUB2, A.SUB3, A.SUB4, A.SUB5, A.AVG, A.REMARKS FROM STUDENT S NATURAL JOIN ACADEMIC A WHERE GRADE={} AND SECTION='{}' ORDER BY NAME".format(grade, section)
+    term = input("enter term ('first', 'second' or 'third'): ").lower()
+    query = "SELECT NAME, S.STUDENT_ID, A.SUB1, A.SUB2, A.SUB3, A.SUB4, A.SUB5, A.AVG, A.REMARKS FROM STUDENT S NATURAL JOIN ACADEMIC A WHERE S.GRADE={} AND S.SECTION='{}' AND A.TERM ='{}' ORDER BY S.NAME".format(grade, section, term)
     cursor.execute(query)
     records = cursor.fetchall()
 
-    if records is None or records == []:
+    if not records: #''
                 print('No records found corresponding to entered grade and/or section')
                 return 0
     
-    query = "SELECT STREAM FROM STUDENT WHERE GRADE = {} AND SECTION = '{}'".format(grade, section)
+    query = "SELECT STREAM FROM STUDENT S NATURAL JOIN ACADEMIC A WHERE S.GRADE = {} AND S.SECTION = '{}' AND A.TERM='{}'".format(grade, section, term)
     cursor.execute(query)
     stream_code = cursor.fetchone()[0]
     sub1, sub2, sub3, sub4, sub5 = streams[stream_code]
@@ -46,10 +47,10 @@ def report_specific_section():
     print(tabulate(records, headers=table_headers, tablefmt = 'grid'))
     print()
     
-    query = "SELECT COUNT(S.STUDENT_ID), MIN(A.AVG) , MAX(A.AVG), AVG(A.AVG)  FROM STUDENT S NATURAL JOIN ACADEMIC A WHERE GRADE={}, SECTION='{}'".format(grade, section)
+    query = "SELECT COUNT(S.STUDENT_ID), MIN(A.AVG) , MAX(A.AVG), AVG(A.AVG)  FROM STUDENT S NATURAL JOIN ACADEMIC A WHERE S.GRADE={} AND S.SECTION='{}' AND A.TERM='{}' ".format(grade, section, term)
     cursor.execute(query)
     rec= cursor.fetchone()
-    if rec is None or rec==[]:
+    if not rec: 
                 print('No records found corresponding to entered credentials')
                 return 0
             
@@ -61,21 +62,25 @@ def report_specific_section():
     
 def report_group_by_stream():
     grade = int(input('Enter grade: '))
-    query = "SELECT S.STREAM, COUNT(A.STUDENT_ID), MIN(A.AVG), MAX(A.AVG), AVG(A.AVG) FROM STUDENT S NATURAL JOIN ACADEMIC A WHERE S.GRADE={} GROUP BY S.STREAM ORDER BY S.STREAM".format(grade)
+    term = input("enter term ('first', 'second' or 'third'): ").lower()
+    query = "SELECT S.STREAM, COUNT(A.STUDENT_ID), MIN(A.AVG), MAX(A.AVG), AVG(A.AVG) FROM STUDENT S NATURAL JOIN ACADEMIC A WHERE S.GRADE={} AND A.TERM = '{}' GROUP BY S.STREAM ORDER BY S.STREAM".format(grade, term)
     cursor.execute(query)
-    rec= cursor.fetchone()
+    recs = cursor.fetchall()
     
-    if rec is None or rec == []:
+    if not recs:
                 print('No records found corresponding to entered credentials')
                 return 0
-    print('Stream:', rec[0])
-    print('Number of students enrolled:', rec[1])
-    print('Minimum score:', rec[2])
-    print('Maximum score:', rec[3])
-    print('Average score:', rec[4])
-    print()
+    for rec in recs:
+        print('Stream:', rec[0])
+        print('Number of students enrolled:', rec[1])
+        print('Minimum score:', rec[2])
+        print('Maximum score:', rec[3])
+        print('Average score:', rec[4])
+        print()
     
 def report_specific_stream():
+    grade = int(input('enter grade (11/12): '))
+    term = input("enter term ('first', 'second' or 'third'): ").lower()
     for stream_code in streams:
         print(stream_code, streams[stream_code])
     print()
@@ -86,10 +91,10 @@ def report_specific_stream():
     i=1        
     for subject in streams[stream_code]:
         sub = 'SUB'+str(i)
-        query = "SELECT MIN(A.{}), MAX(A.{}), AVG(A.{}) FROM STUDENT S NATURAL JOIN ACADEMIC A WHERE S.STREAM ='{}'".format(sub, sub, sub, stream_code)  
+        query = "SELECT MIN(A.{}), MAX(A.{}), AVG(A.{}) FROM STUDENT S NATURAL JOIN ACADEMIC A WHERE S.STREAM ='{}' AND A.TERM='{}' AND S.GRADE={}".format(sub, sub, sub, stream_code, term, grade)  
         cursor.execute(query)
         rec = cursor.fetchone()
-        if rec is None or rec[0] is None:
+        if not rec:
                 print('No records found corresponding to entered credentials')
                 return 0
         print(subject)
@@ -99,10 +104,10 @@ def report_specific_stream():
         print()
         i+=1
             
-    query = "SELECT  COUNT(S.STUDENT_ID), AVG(A.AVG), MIN(A.AVG), MAX(A.AVG) FROM STUDENT S NATURAL JOIN ACADEMIC A WHERE S.STREAM='{}'".format(stream_code)
+    query = "SELECT  COUNT(S.STUDENT_ID), AVG(A.AVG), MIN(A.AVG), MAX(A.AVG) FROM STUDENT S NATURAL JOIN ACADEMIC A WHERE S.STREAM='{}'  AND A.TERM ='{}' AND GRADE={}".format(stream_code, term, grade)
     cursor.execute(query)
     rec = cursor.fetchone()
-    if rec is None or rec[0] is None:
+    if not rec:
         print('No records found corresponding to entered credentials')
         return 0
                 
@@ -133,3 +138,4 @@ def report():
         elif opt ==5:
             return 0
 report()
+
