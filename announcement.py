@@ -9,7 +9,7 @@ def createTableAnnouncement():
 
 cursor.execute('USE SCHOOL')
 def send_announcement():
-    
+    global user_id
     sender = user_id
 
     #to input receiver and their type
@@ -50,7 +50,7 @@ def send_announcement():
     db.commit()
 
 def received_announcement():
-    
+    global user_id
     #to check for announcements for user and add to their inbox 
     cmd = "SELECT GRADE, SECTION FROM STUDENT"
     cursor.execute(cmd)
