@@ -32,9 +32,3 @@ def createTableStaff():
     cmd = "CREATE TABLE STAFF(STAFF_ID INT PRIMARY KEY, NAME VARCHAR(200), DEPARTMENT VARCHAR(20), CPR INT NOT NULL, PASSWORD VARCHAR(10))"
     cursor.execute(cmd)
 
-#to create table 'ANNOUNCEMENT'
-def createTableAnnouncements():
-    cmd= "USE SCHOOL"
-    cursor.execute(cmd)
-    cmd = "CREATE TABLE ANNOUNCEMENT(REF INT PRIMARY KEY, SENDER INT, RECEIPIENT_TYPE varchar(20), RECEIPIENT varchar(20), DATE date, SUBJECT TEXT; CONTENT text)"
-    cursor.execute(cmd)
