@@ -121,7 +121,7 @@ def progress_report():
         print("NAME OF STUDENT: ",name)
         print("CLASS AND SECTION : ",cl,sec,sep=' ')
         #to select rec from academic
-        cmd1="SELECT * FROM ACADEMIC WHERE STUDENT_ID = '{}' AND TERM='{}' ".format(sid,term)
+        cmd1="SELECT * FROM ACADEMIC WHERE STUDENT_ID = {} AND TERM='{}' ".format(sid,term)
         cursor.execute(cmd1)
         rec1= cursor.fetchone()
         #rec1 contains record of student from the table academic
@@ -160,6 +160,7 @@ def staff_update():
                 del_student()
             elif opt==6:
                 break
+
 
 
 
