@@ -3,50 +3,46 @@ streams={'H01':('English','Home Science','Psychology','Marketing','Sociology'), 
 def new_student():
 
     cursor.execute("USE SCHOOL")
-    name = input("enter name: ").title()
-    dob = input('enter date of birth YYYY-MM-DD: ')
-    gender = input('enter gender (M or F): ').upper().strip()
-
-    age = int(input('Enter age: '))
-    grade = int(input("enter class (11-12): "))
-    section = input("enter section (A-Z): ").upper()
-    
-    # see guys i made a global dictionary that contain streamcode (eg: H01, C02, S03) and corresponding subjects
+    n=int(input("Enter no.of inputs:"))
+    for i in range (n):
+        name = input("enter name: ").title()
+        dob = input('enter date of birth YYYY-MM-DD: ')
+        gender = input('enter gender (M or F): ').upper().strip()
+        age = int(input('Enter age: '))
+        grade = int(input("enter class (11-12): "))
+        section = input("enter section (A-Z): ").upper()
+        # see guys i made a global dictionary that contain streamcode (eg: H01, C02, S03) and corresponding subjects
     # now im print the streamcode and its subjects to let the staff confirm that their entering the right stream code
-    for stream_code, subjects in streams.items():
-        print(stream_code, subjects)
+        for stream_code, subjects in streams.items():
+            print(stream_code, subjects)
         
-    stream = input("enter streamcode: ").upper().strip()
-    transport = input("enter transport (bus or private): ").lower().strip()
-
-    if transport == 'bus':
-        bus_no  = int(input("enter bus number: "))
-        bus_stop = input("enter bus stop: ").lower()
-    else:
-        bus_no , bus_stop  = 0, 'None' 
-
-    guardian = input("enter name of guardian(s) (each separated by a \' & \'): ").title()
-    tel = input('enter phone number: ')
-    email = input('enter email: ').strip()
-    address = input('enter address ( [flat] & [building] & [road] & [block] & [area] ')
-    cpr = input('enter student\'s cpr number: ').strip()
-
-    #to generate new student_id
-    cmd = "SELECT MAX(STUDENT_ID) FROM STUDENT"
-    cursor.execute(cmd)
-    result = cursor.fetchone()
-    
-    if result[0] is None or result== []:
-        student_id = 1
-    else:
-        student_id = result + 1
+        stream = input("enter streamcode: ").upper().strip()
+        transport = input("enter transport (bus or private): ").lower().strip()
+        if transport == 'bus':
+            bus_no  = int(input("enter bus number: "))
+            bus_stop = input("enter bus stop: ").lower()
+        else:
+            bus_no , bus_stop  = 0, 'None' 
+        guardian = input("enter name of guardian(s) (each separated by a \' & \'): ").title()
+        tel = input('enter phone number: ')
+        email = input('enter email: ').strip()
+        address = input('enter address ( [flat] & [building] & [road] & [block] & [area] ')
+        cpr = input('enter student\'s cpr number: ').strip()
+     #to generate new student_id
+        cmd = "SELECT MAX(STUDENT_ID) FROM STUDENT"
+        cursor.execute(cmd)
+        result = cursor.fetchone()
+        if result[0] is None or result== []:
+            student_id = 1
+        else:
+            student_id = result + 1
 #password is set default to password until changed by the student
-    password = 'password'
-    print('Generated student id is', student_id)
-    
-    cmd = "INSERT INTO STUDENT VALUES({}, '{}', '{}', '{}', {}, {}, '{}', '{}', '{}', {}, '{}', '{}', '{}', '{}', '{}', '{}' ,'{}')".format(student_id, name, dob, gender, age, grade, section, stream, transport, bus_no, bus_stop, guardian, tel, email, address,cpr, password)
-    cursor.execute(cmd)
-    db.commit()
+        password = 'password'
+        print('Generated student id is', student_id)
+        
+        cmd = "INSERT INTO STUDENT VALUES({}, '{}', '{}', '{}', {}, {}, '{}', '{}', '{}', {}, '{}', '{}', '{}', '{}', '{}', '{}' ,'{}')".format(student_id, name, dob, gender, age, grade, section, stream, transport, bus_no, bus_stop, guardian, tel, email, address,cpr, password)
+        cursor.execute(cmd)
+        db.commit()
 
 
 def new_staff():
@@ -73,3 +69,4 @@ def new_staff():
     cmd= "INSERT INTO STAFF VALUES({}, '{}', '{}','{}', '{}')".format(staff_id, name, dept, cpr, password)
     cursor.execute(cmd)
     db.commit()
+
