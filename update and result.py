@@ -12,45 +12,45 @@ def update_grade():
 
 #update bus stop
 def update_busstop():
-    gr=input("enter student id of the student to be updated:").upper()
+    gr=int(input("enter student id of the student to be updated:"))
     nbusstop=input("Enter new bus stop of the student:").lower()
-    com="update student set Bus_stop='{}' where Student_id ='{}' ".format(nbusstop,gr)
+    com="update student set Bus_stop='{}' where Student_id ={} ".format(nbusstop,gr)
     cursor.execute(com)
     db.commit()
 
 #update bus no
 def update_busno():
-    gr=input("enter student id of the student to be updated:").upper()
+    gr=int(input("enter student id of the student to be updated:"))
     nbusno=int(input("Enter new bus number:"))
-    com="update student set Bus_no={} where Student_id= '{}' ".format(nbusno,gr)
+    com="update student set Bus_no={} where Student_id= {} ".format(nbusno,gr)
     cursor.execute(com)
     db.commit()
     
 #update telephone no
 def update_tel():
-    gr=input("enter student id of the student to be updated:").upper()
+    gr=int(input("enter student id of the student to be updated:"))
     nph=input("Enter new phone number of the student:")
-    com="update student set Tel='{}' where Student_id='{}'".format(nph,gr)
+    com="update student set Tel='{}' where Student_id={}".format(nph,gr)
     cursor.execute(com)
     db.commit()
 
 #update staff passwd
 def update_staffpass():
-    id=input("Enter staffid:")
+    staff_id=int(input("Enter staffid:"))
     npass=input("Enter new password of Staff:")
-    com="UPDATE STAFF SET PASSWORD='{}' WHERE STAFFID='{}' ".format(npass,id)
+    com="UPDATE STAFF SET PASSWORD='{}' WHERE STAFFID={} ".format(npass,staff_id)
     cursor.execute(com)
     db.commit()
 
 #delete student record
 def del_student():
-    gr=input("Enter student id of student to be removed:")
-    com="Delete from Student where Student_id = '{}' ".format(gr)
-    com1="Delete from Academic where Studentid = '{}' ".format(gr)
+    gr=int(input("Enter student id of student to be removed:"))
+    com="Delete from Student where Student_id = {} ".format(gr)
+    com1="Delete from Academic where Studentid = {} ".format(gr)
     cursor.execute(com)
     cursor.execute(com1)
     db.commit()
-#even if the entered id is not present in either or one of them it doesn't show any error
+    #even if the entered id is not present in either or one of them it doesn't show any error
 
 
 #stream
@@ -120,7 +120,7 @@ def progress_report():
        
         #to select the stream of the student from the table student 
         opt=rec[7]           
-        s1,s2,s3,s4,s5=stream(opt)
+        s1,s2,s3,s4,s5=streams[opt]
         data=[[s1,rec1[3]],[s2,rec1[4]],[s3,rec1[5]],[s4,rec1[6]],[s5,rec1[7]]] 
         #data will be now like [[sub1,mark],[sub2,mark],etc]
         header=['SUBJECT','MARKS']
@@ -152,6 +152,7 @@ def staff_update():
                 del_student()
             elif opt==6:
                 break
+
 
 
 
