@@ -1,17 +1,5 @@
-
-#probs with report_specific_section function
-#finished testing
-
-import mysql.connector as sql
-db = sql.connect(host='localhost', user='root', passwd='****', database='school')
-cursor = db.cursor()
-
-from tabulate import tabulate
-
-streams={'H01':('English','Home Science','Psychology','Marketing','Sociology'), 'C01':('English','Accountancy','Business Studies','Economics','Mathematics'),'C02':('English','Accountancy','Business Studies','Economics','Informatics Practices'),'C03':('English','Accountancy','Business Studies','Economics','Marketing'),'S01':( 'English','Physics','Chemistry','Mathematics','Biology'),'S02':('English','Physics','Chemistry','Mathematics','Computer Science'),'S03':('English','Physics','Chemistry','Mathematics','Engineering Graphics'),'S04':('English','Physics','Chemistry','Biology','Computer Science'),'S05':('English','Physics','Chemistry','Biology','Bio-Technology'),'S06':('English','Physics','Chemistry','Mathematics','Artificial Intelligence')}
-    
 def report_group_by_section():
-    grade = int(input('enter grade: '))
+    grade = int(input('enter grade (11/12): '))
     term = input("enter term ('first', 'second' or 'third'): ").lower()
     query = "SELECT S.GRADE, S.SECTION, COUNT(A.STUDENT_ID), AVG(A.AVG), MIN(A.AVG), MAX(A.AVG) FROM STUDENT S NATURAL JOIN ACADEMIC A WHERE S.GRADE = {} AND A.TERM= '{}' GROUP BY S.SECTION ORDER BY S.SECTION".format(grade, term)
     cursor.execute(query)
@@ -24,9 +12,9 @@ def report_group_by_section():
     table_headers = ['Grade','Section', 'No. of students', 'Class average', 'Class minimum', 'Class maximum']
     print(tabulate(records, headers =table_headers, tablefmt="psql"))
 
-
+#unread value error in this function, dk why
 def report_specific_section():
-    grade = int(input('enter grade: '))
+    grade = int(input('enter grade (11/12): '))
     section = input("enter section: ").upper()
     term = input("enter term ('first', 'second' or 'third'): ").lower()
     query = "SELECT NAME, S.STUDENT_ID, A.SUB1, A.SUB2, A.SUB3, A.SUB4, A.SUB5, A.AVG, A.REMARKS FROM STUDENT S NATURAL JOIN ACADEMIC A WHERE S.GRADE={} AND S.SECTION='{}' AND A.TERM ='{}' ORDER BY S.NAME".format(grade, section, term)
@@ -61,7 +49,7 @@ def report_specific_section():
     print()
     
 def report_group_by_stream():
-    grade = int(input('Enter grade: '))
+    grade = int(input('Enter grade (11/12): '))
     term = input("enter term ('first', 'second' or 'third'): ").lower()
     query = "SELECT S.STREAM, COUNT(A.STUDENT_ID), MIN(A.AVG), MAX(A.AVG), AVG(A.AVG) FROM STUDENT S NATURAL JOIN ACADEMIC A WHERE S.GRADE={} AND A.TERM = '{}' GROUP BY S.STREAM ORDER BY S.STREAM".format(grade, term)
     cursor.execute(query)
@@ -80,7 +68,9 @@ def report_group_by_stream():
     
 def report_specific_stream():
     grade = int(input('enter grade (11/12): '))
-    term = input("enter term ('first', 'second' or 'third'): ").lower()
+    term = input("enter term ('first', 'second' or 'third'): \n").lower()
+    global streams
+    
     for stream_code in streams:
         print(stream_code, streams[stream_code])
     print()
@@ -108,7 +98,7 @@ def report_specific_stream():
     cursor.execute(query)
     rec = cursor.fetchone()
     if not rec:
-        print('No records found corresponding to entered credentials')
+        print('No records found corresponding to entered credentials\n')
         return 0
                 
     print('Number of students enrolled:', rec[0])
@@ -119,7 +109,7 @@ def report_specific_stream():
     
 def report():
     while True:
-        print('\n', 'REPORT MENU', '\n')
+        print('\n---REPORT MENU---\n')
         print("1. group by section")
         print("2. specific section")
         print("3. group by stream")
@@ -137,5 +127,3 @@ def report():
             report_specific_stream()
         elif opt ==5:
             return 0
-report()
-
