@@ -72,76 +72,76 @@ def stream(stream_code):
     
 #input marks into table academic
 def marksmanagement():
-    sid=int(input("Enter student id:"))
-    term=input("Enter term:").upper()
-    query = "SELECT STREAM FROM STUDENT WHERE STUDENT_ID = {}".format(sid)
-    cursor.execute(query)
-    rec = cursor.fetchone()
-    for stream_code,subject in streams.items():
-        print(stream_code,subject)
-    opt = input("Enter subject code:").upper()
-    print(stream(opt))
-    s1=int(input("Enter marks of subject 1:"))
-    s2=int(input("Enter marks of subject 2:"))
-    s3=int(input("Enter marks of subject 3:"))
-    s4=int(input("Enter marks of subject 4:"))
-    s5=int(input("Enter marks of subject 5:"))
-    avg=(s1+s2+s3+s4+s5)/5
-    remark=input("Enter remarks:").upper()
-
-    cmd = "SELECT MAX(SNO) FROM ACADEMIC"
-    cursor.execute(cmd)
-    result = cursor.fetchone()
-    if result [0] is None:
-        new_sno=1
-    else:
-        new_sno=result[0]+1
-    
-    com="INSERT INTO ACADEMIC VALUES ({}, {},'{}',{},{},{},{},{},{},'{}')".format (new_sno, sid,term,s1,s2,s3,s4,s5,avg,remark)
-    cursor.execute(com)
-    db.commit()
+    n=int(input("Enter no. of inputs: "))
+    for i in range (n):
+        sid=int(input("Enter student id:"))
+        term=input("Enter term:").upper()
+        query = "SELECT STREAM FROM STUDENT WHERE STUDENT_ID = {}".format(sid)
+        cursor.execute(query)
+        rec = cursor.fetchone()
+        for stream_code,subject in streams.items():
+            print(stream_code,subject)
+        opt = input("Enter subject code:").upper()
+        print(stream(opt))
+        s1=int(input("Enter marks of subject 1:"))
+        s2=int(input("Enter marks of subject 2:"))
+        s3=int(input("Enter marks of subject 3:"))
+        s4=int(input("Enter marks of subject 4:"))
+        s5=int(input("Enter marks of subject 5:"))
+        avg=(s1+s2+s3+s4+s5)/5
+        remark=input("Enter remarks:").upper()
+        
+        cmd = "SELECT MAX(SNO) FROM ACADEMIC"
+        cursor.execute(cmd)
+        result = cursor.fetchone()
+        if result [0] is None:
+            new_sno=1
+        else:
+            new_sno=result[0]+1
+        
+        com="INSERT INTO ACADEMIC VALUES ({}, {},'{}',{},{},{},{},{},{},'{}')".format (new_sno, sid,term,s1,s2,s3,s4,s5,avg,remark)
+        cursor.execute(com)
+        db.commit()
 
 #PROGRESS REPORT
 #center() is method used to print the string at the centre of the output screen 
 #syntax of center is text.center(width)
 def progress_report():
     from tabulate import tabulate
-    n= int(input("Enter no.of inputs:" ))
-    for i in range(n):
-        sid=int(input("Enter Studend Id of the student: "))
-        term= input("Enter term: ").upper()
-        nterm=term+' '+'TERM' 
-         #to display like "FIRST TERM" in the report card
-         #made it as nterm as term is later used in the code to fetch data from student table
-        print("THE INDIAN SCHOOL, KINGDOM OF BAHRAIN".center(400))
-        print("PROGRESS REPORT 2025-2026".center(410))
-        print(nterm.center(445))
-        cmd="SELECT * FROM STUDENT WHERE STUDENT_ID={}".format(sid)
-        cursor.execute(cmd)
-        rec=cursor.fetchone()
-        #rec contains the record of student from the table student
-        if rec:
-            gr,name,cl,sec=rec[0],rec[1],rec[5],rec[6]
-            print("Student Id : ",gr)
-            print("NAME OF STUDENT: ",name)
-            print("CLASS AND SECTION : ",cl,sec,sep=' ')
-             #to select rec from academic
-            cmd1="SELECT * FROM ACADEMIC WHERE STUDENT_ID = {} AND TERM='{}' ".format(sid,term)
-            cursor.execute(cmd1)
-            rec1= cursor.fetchone()
-             #rec1 contains record of student from the table academic
+    sid=int(input("Enter Studend Id of the student: "))
+    term= input("Enter term: ").upper()
+    nterm=term+' '+'TERM' 
+    #to display like "FIRST TERM" in the report card
+    #made it as nterm as term is later used in the code to fetch data from student table
+    print("THE INDIAN SCHOOL, KINGDOM OF BAHRAIN".center(400))
+    print("PROGRESS REPORT 2025-2026".center(410))
+    print(nterm.center(445))
+    cmd="SELECT * FROM STUDENT WHERE STUDENT_ID={}".format(sid)
+    cursor.execute(cmd)
+    rec=cursor.fetchone()
+    #rec contains the record of student from the table student
+    if rec:
+        gr,name,cl,sec=rec[0],rec[1],rec[5],rec[6]
+        print("Student Id : ",gr)
+        print("NAME OF STUDENT: ",name)
+        print("CLASS AND SECTION : ",cl,sec,sep=' ')
+        #to select rec from academic
+        cmd1="SELECT * FROM ACADEMIC WHERE STUDENT_ID = {} AND TERM='{}' ".format(sid,term)
+        cursor.execute(cmd1)
+        rec1= cursor.fetchone()
+        #rec1 contains record of student from the table academic
        
-             #to select the stream of the student from the table student 
-            opt=rec[7]           
-            s1,s2,s3,s4,s5=streams[opt]
-            data=[[s1,rec1[3]],[s2,rec1[4]],[s3,rec1[5]],[s4,rec1[6]],[s5,rec1[7]]]
-            #data will be now like [[sub1,mark],[sub2,mark],etc]
-            header=['SUBJECT','MARKS']
-            print(tabulate (data,headers=header,tablefmt='grid'))
-            print("AVERAGE:",rec1[-2])
-            print("REMARKS:",rec1[-1])
-        else:
-            print("No record found")
+        #to select the stream of the student from the table student 
+        opt=rec[7]           
+        s1,s2,s3,s4,s5=streams[opt]
+        data=[[s1,rec1[3]],[s2,rec1[4]],[s3,rec1[5]],[s4,rec1[6]],[s5,rec1[7]]]
+        #data will be now like [[sub1,mark],[sub2,mark],etc]
+        header=['SUBJECT','MARKS']
+        print(tabulate (data,headers=header,tablefmt='grid'))
+        print("AVERAGE:",rec1[-2])
+        print("REMARKS:",rec1[-1])
+    else:
+        print("No record found")
 
 def staff_update():
     while True:
@@ -165,6 +165,7 @@ def staff_update():
                 del_student()
             elif opt==6:
                 break
+
 
 
 
