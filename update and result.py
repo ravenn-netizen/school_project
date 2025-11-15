@@ -42,6 +42,14 @@ def update_staffpass():
     cursor.execute(com)
     db.commit()
 
+#update student password
+def update_studentpass():
+    gr=int(input("Enter student id of the student to be updated:"))
+    npass=input("Enter new password of the student:")
+    com="UPDATE STUDENT SET PASSWORD = '{}' WHERE STUDENT_ID={}". format(npass,gr)
+    cursor.execute(com)
+    db.commit()
+
 #delete student record
 def del_student():
     gr=int(input("Enter student id of student to be removed:"))
@@ -152,6 +160,7 @@ def staff_update():
                 del_student()
             elif opt==6:
                 break
+
 
 
 
