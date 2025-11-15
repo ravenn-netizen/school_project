@@ -12,10 +12,10 @@ def new_student():
     
     # see guys i made a global dictionary that contain streamcode (eg: H01, C02, S03) and corresponding subjects
     # now im print the streamcode and its subjects to let the staff confirm that their entering the right stream code
-    print()
+    
     for stream_code, subjects in streams.items():
         print(stream_code, subjects)
-    print()    
+  
     stream = input("enter streamcode: ").upper().strip()
     transport = input("enter transport (bus or private): ").lower().strip()
 
@@ -36,10 +36,10 @@ def new_student():
     cursor.execute(cmd)
     result = cursor.fetchone()
     
-    if not result:
+    if result[0] is None or result==[]:
         student_id = 1
     else:
-        student_id = result[0] + 1
+        student_id = result + 1
 #password is set default to password until changed by the student
     password = 'password'
     print('Generated student id is', student_id)
@@ -72,3 +72,4 @@ def new_staff():
     cmd= "INSERT INTO STAFF VALUES({}, '{}', '{}','{}', '{}')".format(staff_id, name, dept, cpr, password)
     cursor.execute(cmd)
     db.commit()
+
