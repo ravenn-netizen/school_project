@@ -33,18 +33,18 @@ def send_announcement():
     cursor.execute(cmd)
     result = cursor.fetchone()
     
-    if result is None or result[0] is None:
+    if not result:
         ref = 1
     else:
         ref = result[0] + 1
 
-    #to input anncuncement content
+    #to input announcement content
     date = input('enter date YYYY-MM-DD: ')
     subject = input('enter subject: ')
     content = input('enter content: ')
     
     #to add into to file 
-    cmd = "INSERT INTO ANNOUNCEMENT VALUES({}, '{}', {}, '{}', '{}','{}', '{}')".format(ref, sender, receipient_type, receipient, date, subject, content)
+    cmd = "INSERT INTO ANNOUNCEMENT VALUES({}, {}, {}, '{}', '{}','{}', '{}')".format(ref, sender, receipient_type, receipient, date, subject, content)
     cursor.execute(cmd)
 
     db.commit()
@@ -60,7 +60,7 @@ def received_announcement():
     cursor.execute(cmd)
     records = cursor.fetchall()
 
-    if records is None or records[0] is None:
+    if not records :
         print('No announcements in inbox')
         print('Check another time :)')
         return 0
@@ -85,6 +85,10 @@ def received_announcement():
             
     #to open each message
     print('announcements in inbox:', len(inbox))
+    if not inbox:
+        print('No announcement in inbox')
+        print('Check another time :)')
+        return 0
 
     if len(inbox) > 0:
         for i in range(len(inbox)):
@@ -103,8 +107,6 @@ def received_announcement():
                     continue 
 
                 message = inbox[opt-1]
-
-
                 
                 #to find sending staff's name as only their staff_id is stored in the table    
                 cmd = "SELECT NAME FROM STAFF WHERE STAFF_ID = '{}'".format(message[1])
@@ -117,4 +119,3 @@ def received_announcement():
     else:
         print('No announcement in inbox')
         print('Check another time :)')
-
