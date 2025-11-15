@@ -71,7 +71,7 @@ def stream(stream_code):
     return sub1,sub2,sub3,sub4,sub5
     
 #input marks into table academic
-def marksmanagement():
+def marks_management():
     n=int(input("Enter no. of inputs: "))
     for i in range (n):
         sid=int(input("Enter student id:"))
@@ -165,6 +165,7 @@ def staff_update():
                 del_student()
             elif opt==6:
                 break
+
 
 
 
