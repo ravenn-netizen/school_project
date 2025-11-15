@@ -1,73 +1,94 @@
-from tabulate import tabulate
-import mysql.connector as sql
-
-db = sql.connect(host='localhost', user='root', passwd='****', database='SCHOOL')
-cursor = db.cursor()
-
-
-streams = {
-    'H01': ('English', 'Home Science', 'Psychology', 'Marketing', 'Sociology'),
-    'C01': ('English', 'Accountancy', 'Business Studies', 'Economics', 'Mathematics'),
-    'C02': ('English', 'Accountancy', 'Business Studies', 'Economics', 'Informatics Practices'),
-    'C03': ('English', 'Accountancy', 'Business Studies', 'Economics', 'Marketing'),
-    'S01': ('English', 'Physics', 'Chemistry', 'Mathematics', 'Biology'),
-    'S02': ('English', 'Physics', 'Chemistry', 'Mathematics', 'Computer Science'),
-    'S03': ('English', 'Physics', 'Chemistry', 'Mathematics', 'Engineering Graphics'),
-    'S04': ('English', 'Physics', 'Chemistry', 'Biology', 'Computer Science'),
-    'S05': ('English', 'Physics', 'Chemistry', 'Biology', 'Bio-Technology'),
-    'S06': ('English', 'Physics', 'Chemistry', 'Mathematics', 'Artificial Intelligence')
-}
-
-# Authentication 
-def admin_sign_in():
+def Main_Menu():
     while True:
-        password = input("Enter admin password: ")
-        if password == "admin's password":  # We need to make a passwd
-            print("Admin signed in.")
-            return True
+        print("\n--- School Management System ---")
+        print("1. Staff Sign In")
+        print("2. Student Sign In")
+        print("3. Exit")
+        choice = input("Choose an option (1-3): ")
+
+        if choice == '1':
+            staff_id = staff_sign_in()
+            if staff_id != 0:
+                staff_menu(staff_id)
+        elif choice == '2':
+            student_id = student_sign_in()
+            if student_id != 0:
+                student_menu(student_id)
+        elif choice == '3':
+            print("Goodbye!")
+            break
         else:
-            print("Incorrect password. Try again or enter 'exit' to return to menu.")
-            if input("Continue? (yes/no): ").lower() != "yes":
-                return False
+            print("Invalid input. Please enter 1, 2, or 3.")
 
-def staff_sign_in():
-    cursor.execute("SELECT STAFFID FROM STAFF")
-    valid_ids = [id[0] for id in cursor.fetchall()]
+def staff_menu(staff_id):
     while True:
-        try:
-            staff_id = int(input("Enter staff ID: "))
-            if staff_id in valid_ids:
-                cursor.execute(f"SELECT PASSWORD FROM STAFF WHERE STAFFID={staff_id}")
-                correct_password = cursor.fetchone()[0]
-                entered_password = input("Enter password: ")
-                if entered_password == correct_password:
-                    print("Staff signed in.")
-                    return staff_id
-                else:
-                    print("Wrong password, try again.")
-            else:
-                print("Staff ID not found.")
-        except ValueError:
-            print("Please enter a valid number.")
+        print("\n--- Staff Menu ---")
+        print("1. Student Info")
+        print("2. Send Announcement")
+        print("3. Reports")
+        print("4. Update Password")
+        print("5. Logout")
+        choice = input("Choose an option (1-5): ")
 
-def student_sign_in():
-    cursor.execute("SELECT STUDENT_ID FROM STUDENT")
-    valid_ids = [id[0] for id in cursor.fetchall()]
+        if choice == '1':
+            while True:
+                print("\n--- Student Info ---")
+                print("a. New Admission")
+                print("b. Search Student")
+                print("c. Marks Management")
+                print("d. Update Student Info")
+                print("e. Remove Student")
+                print("f. Back to Staff Menu")
+                sub_choice = input("Select option (a-f): ").lower()
+
+                #functions based on sub_choice
+                if sub_choice == 'a':
+                    new_student()
+                elif sub_choice == 'b':
+                    search_student_menu()
+                elif sub_choice == 'c':
+                    marksmanagement()
+                elif sub_choice == 'd':
+                    update_student_info_menu()
+                elif sub_choice == 'e':
+                    del_student()
+                elif sub_choice == 'f':
+                    break
+                else:
+                    print("Invalid option, please try again.")
+                    
+        elif choice == '2':
+            send_announcement()
+        elif choice == '3':
+            report()
+        elif choice == '4':
+            update_staff_pass()
+        elif choice == '5':
+            print("Logging out...")
+            break
+        else:
+            print("Invalid choice!")
+
+
+def student_menu(student_id):
     while True:
-        try:
-            student_id = int(input("Enter student ID: "))
-            if student_id in valid_ids:
-                cursor.execute(f"SELECT PASSWORD FROM STUDENT WHERE STUDENT_ID={student_id}")
-                correct_password = cursor.fetchone()[0]
-                entered_password = input("Enter password: ")
-                if entered_password == correct_password:
-                    print("Student signed in.")
-                    return student_id
-                else:
-                    print("Wrong password, try again.")
-            else:
-                print("Student ID not found.")
-        except ValueError:
-            print("Please enter a valid number.")
+        print("\n--- Student Menu ---")
+        print("1. View Announcements")
+        print("2. View Result")
+        print("3. Update Password")
+        print("4. Logout")
+        choice = input("Choose an option (1-4): ")
 
+        if choice == '1':
+            received_announcement()
+        elif choice == '2':
+            progress_report()
+        elif choice == '3':
+            update_student_password()
+        elif choice == '4':
+            print("Logging out...")
+            break
+        else:
+            print("Invalid choice!")
 
+main_menu()
