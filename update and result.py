@@ -4,7 +4,7 @@ cursor=db.cursor()
 
 #update class 
 def update_grade():
-    gr=input("enter student id of the student to be updated:").upper()
+    gr=int(input("Enter student id of the student to be updated:"))
     nclass=int(input("Enter new class of the student (11/12):"))
     com="update student set Grade= {} where Student_id='{}'".format(nclass,gr)
     cursor.execute(com)
@@ -12,7 +12,7 @@ def update_grade():
 
 #update bus stop
 def update_busstop():
-    gr=int(input("enter student id of the student to be updated:"))
+    gr=int(input("Enter student id of the student to be updated:"))
     nbusstop=input("Enter new bus stop of the student:").lower()
     com="update student set Bus_stop='{}' where Student_id ={} ".format(nbusstop,gr)
     cursor.execute(com)
@@ -72,9 +72,9 @@ def stream(stream_code):
     
 #input marks into table academic
 def marksmanagement():
-    sid=input("Enter student id:").upper()
+    sid=int(input("Enter student id:"))
     term=input("Enter term:").upper()
-    query = "SELECT STREAM FROM STUDENT WHERE STUDENT_ID = '{}'".format(sid)
+    query = "SELECT STREAM FROM STUDENT WHERE STUDENT_ID = {}".format(sid)
     cursor.execute(query)
     rec = cursor.fetchone()
     for stream_code,subject in streams.items():
@@ -97,7 +97,7 @@ def marksmanagement():
     else:
         new_sno=result[0]+1
     
-    com="INSERT INTO ACADEMIC VALUES ({}, '{}','{}',{},{},{},{},{},{},'{}')".format (new_sno, sid,term,s1,s2,s3,s4,s5,avg,remark)
+    com="INSERT INTO ACADEMIC VALUES ({}, {},'{}',{},{},{},{},{},{},'{}')".format (new_sno, sid,term,s1,s2,s3,s4,s5,avg,remark)
     cursor.execute(com)
     db.commit()
 
@@ -106,12 +106,12 @@ def marksmanagement():
 #syntax of center is text.center(width)
 def progress_report():
     from tabulate import tabulate
-    sid=input("Enter Studend Id of the student: ").upper()
+    sid=int(input("Enter Studend Id of the student: "))
     term= input("Enter term: ").upper()
     print("THE INDIAN SCHOOL, KINGDOM OF BAHRAIN".center(400))
     print("PROGRESS REPORT 2025-2026".center(410))
     print(term.center(450))
-    cmd="SELECT * FROM STUDENT WHERE STUDENT_ID='{}' ".format(sid)
+    cmd="SELECT * FROM STUDENT WHERE STUDENT_ID={}".format(sid)
     cursor.execute(cmd)
     rec=cursor.fetchone()
     #rec contains the record of student from the table student
@@ -160,6 +160,7 @@ def staff_update():
                 del_student()
             elif opt==6:
                 break
+
 
 
 
