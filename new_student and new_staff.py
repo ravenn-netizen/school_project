@@ -36,7 +36,7 @@ def new_student():
         cursor.execute(cmd)
         result = cursor.fetchone()
         
-        if result[0] is None or result==[]:
+        if not result:
             student_id = 1
         else:
             student_id = result[0] + 1
@@ -73,6 +73,7 @@ def new_staff():
     cmd= "INSERT INTO STAFF VALUES({}, '{}', '{}','{}', '{}')".format(staff_id, name, dept, cpr, password)
     cursor.execute(cmd)
     db.commit()
+
 
 
 
