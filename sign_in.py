@@ -70,7 +70,7 @@ def student_sign_in():
             elif opt == 2:
                 return 0
     
-    cmd = "SELECT PASSWORD FROM STAFF WHERE STAFF_ID = '{}'".format(staff_id)
+    cmd = "SELECT PASSWORD FROM STUDENT WHERE STUDENT_ID = '{}'".format(student_id)
     cursor.execute(cmd)
     password_in_db = cursor.fetchall()[0]
 
@@ -133,6 +133,7 @@ def admin_menu():
             searchSTUDENTID()
         elif choice == 3:
             delstudent()
+
 
 
 
