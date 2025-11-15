@@ -108,9 +108,12 @@ def progress_report():
     from tabulate import tabulate
     sid=int(input("Enter Studend Id of the student: "))
     term= input("Enter term: ").upper()
+    nterm=term+' '+'TERM'  
+    #to display like "FIRST TERM" in the report card
+    #made it as nterm as term is later used in the code to fetch data from student table
     print("THE INDIAN SCHOOL, KINGDOM OF BAHRAIN".center(400))
     print("PROGRESS REPORT 2025-2026".center(410))
-    print(term.center(450))
+    print(nterm.center(450))
     cmd="SELECT * FROM STUDENT WHERE STUDENT_ID={}".format(sid)
     cursor.execute(cmd)
     rec=cursor.fetchone()
@@ -160,6 +163,7 @@ def staff_update():
                 del_student()
             elif opt==6:
                 break
+
 
 
 
