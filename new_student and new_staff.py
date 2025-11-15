@@ -39,7 +39,7 @@ def new_student():
         if result[0] is None or result==[]:
             student_id = 1
         else:
-            student_id = result + 1
+            student_id = result[0] + 1
 
     #password is set default to password until changed by the student
         password = 'password'
@@ -73,5 +73,6 @@ def new_staff():
     cmd= "INSERT INTO STAFF VALUES({}, '{}', '{}','{}', '{}')".format(staff_id, name, dept, cpr, password)
     cursor.execute(cmd)
     db.commit()
+
 
 
