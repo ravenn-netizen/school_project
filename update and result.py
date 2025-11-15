@@ -106,40 +106,42 @@ def marksmanagement():
 #syntax of center is text.center(width)
 def progress_report():
     from tabulate import tabulate
-    sid=int(input("Enter Studend Id of the student: "))
-    term= input("Enter term: ").upper()
-    nterm=term+' '+'TERM'  
-    #to display like "FIRST TERM" in the report card
-    #made it as nterm as term is later used in the code to fetch data from student table
-    print("THE INDIAN SCHOOL, KINGDOM OF BAHRAIN".center(400))
-    print("PROGRESS REPORT 2025-2026".center(410))
-    print(nterm.center(445))
-    cmd="SELECT * FROM STUDENT WHERE STUDENT_ID={}".format(sid)
-    cursor.execute(cmd)
-    rec=cursor.fetchone()
-    #rec contains the record of student from the table student
-    if rec:
-        gr,name,cl,sec=rec[0],rec[1],rec[5],rec[6]
-        print("Student Id : ",gr)
-        print("NAME OF STUDENT: ",name)
-        print("CLASS AND SECTION : ",cl,sec,sep=' ')
-        #to select rec from academic
-        cmd1="SELECT * FROM ACADEMIC WHERE STUDENT_ID = {} AND TERM='{}' ".format(sid,term)
-        cursor.execute(cmd1)
-        rec1= cursor.fetchone()
-        #rec1 contains record of student from the table academic
+    n= int(input("Enter no.of inputs:" ))
+    for i in range(n):
+        sid=int(input("Enter Studend Id of the student: "))
+        term= input("Enter term: ").upper()
+        nterm=term+' '+'TERM' 
+         #to display like "FIRST TERM" in the report card
+         #made it as nterm as term is later used in the code to fetch data from student table
+        print("THE INDIAN SCHOOL, KINGDOM OF BAHRAIN".center(400))
+        print("PROGRESS REPORT 2025-2026".center(410))
+        print(nterm.center(445))
+        cmd="SELECT * FROM STUDENT WHERE STUDENT_ID={}".format(sid)
+        cursor.execute(cmd)
+        rec=cursor.fetchone()
+        #rec contains the record of student from the table student
+        if rec:
+            gr,name,cl,sec=rec[0],rec[1],rec[5],rec[6]
+            print("Student Id : ",gr)
+            print("NAME OF STUDENT: ",name)
+            print("CLASS AND SECTION : ",cl,sec,sep=' ')
+             #to select rec from academic
+            cmd1="SELECT * FROM ACADEMIC WHERE STUDENT_ID = {} AND TERM='{}' ".format(sid,term)
+            cursor.execute(cmd1)
+            rec1= cursor.fetchone()
+             #rec1 contains record of student from the table academic
        
-        #to select the stream of the student from the table student 
-        opt=rec[7]           
-        s1,s2,s3,s4,s5=streams[opt]
-        data=[[s1,rec1[3]],[s2,rec1[4]],[s3,rec1[5]],[s4,rec1[6]],[s5,rec1[7]]] 
-        #data will be now like [[sub1,mark],[sub2,mark],etc]
-        header=['SUBJECT','MARKS']
-        print(tabulate (data,headers=header,tablefmt='grid'))
-        print("AVERAGE:",rec1[-2])
-        print("REMARKS:",rec1[-1])
-    else:
-        print("No record found")
+             #to select the stream of the student from the table student 
+            opt=rec[7]           
+            s1,s2,s3,s4,s5=streams[opt]
+            data=[[s1,rec1[3]],[s2,rec1[4]],[s3,rec1[5]],[s4,rec1[6]],[s5,rec1[7]]]
+            #data will be now like [[sub1,mark],[sub2,mark],etc]
+            header=['SUBJECT','MARKS']
+            print(tabulate (data,headers=header,tablefmt='grid'))
+            print("AVERAGE:",rec1[-2])
+            print("REMARKS:",rec1[-1])
+        else:
+            print("No record found")
 
 def staff_update():
     while True:
@@ -163,6 +165,7 @@ def staff_update():
                 del_student()
             elif opt==6:
                 break
+
 
 
 
